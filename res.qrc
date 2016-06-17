@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>bg.jpg</file>
+        <file>board.png</file>
+        <file>bullet.png</file>
+        <file>doodleL.png</file>
+        <file>doodleR.png</file>
+        <file>doodleS.png</file>
+        <file>p-green.png</file>
+    </qresource>
+</RCC>

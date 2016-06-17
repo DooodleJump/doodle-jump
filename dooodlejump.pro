@@ -29,4 +29,5 @@ HEADERS  += \
     Bullet.h
 
 RESOURCES += \
+    res.qrc \
     res.qrc
