@@ -19,7 +19,7 @@ Game::Game(QWidget *parent)
     setFixedSize(500,700);
 
     doodle = new Doodle();
-    doodle->setPos(240,600);
+    doodle->setPos(240,500);
 
     doodle->setFlag(QGraphicsItem::ItemIsFocusable);
     doodle->setFocus();

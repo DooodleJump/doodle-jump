@@ -7,7 +7,6 @@
 #include <Windows.h>
 
 QSet<Qt::Key> pressedKeys;
-int Max_t;
 
 Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
@@ -16,11 +15,10 @@ Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 
     this->installEventFilter(this);
     g = 10;
-    v_0 = 30;
-    v_1 = v_0;
+    v_0 = 40;
+    v_1 = 0;
     y_0 = y();
     t = 0;
-    Max_t = v_0/g;
 
     //***************************************************************
 
@@ -106,60 +104,36 @@ void Doodle::move_down(int YY)
 void Doodle::set_pos()
 {
     t++;
-    int Y = ComputeY(t);
-     qDebug() << Y << endl;
-    setPos(x(), Y );
+    ComputeY(t);
+    setPos(x(), y() - Y );
+    qDebug() << Y << endl;
 }
 
 int Doodle::ComputeY(int t1)
 {
-    if(t == 2*Max_t)
+    int flag = 0;
+    int Max_t = v_0/g;
+    int yoj = (v_0 * v_0) / (2 * g);
+
+    v_1 = (-1*g*t) + v_0;
+
+    if (t > 3)
+        flag = 1;
+
+    dy = ( (v_1*v_1) - (v_0*v_0) ) / (-2*g);
+
+    if (!flag)
+        Y = yoj - dy;
+    else
+        Y = -1*(yoj - dy);
+
+    if (t == 2*Max_t)
     {
-      t = 0;
+        t = -1;
     }
+    qDebug() << t << endl;
 
-//    if (t1 == Max_t)
-//    {
-//        v_0 = 0;
-//    }
-
-//    v_0 -= g;
-//    y_0 -= 10;
-
-//    if (v_0 < -30)
-//        qDebug() << "shod" << endl;
-
-
-  //  v_1 = -1*g*t + v_0;
-
-    y_1 = -1*(1/2)*g*t*t + v_1*t + y_0;
-
-    return y_1;
-
-
-
-
-
-
-
-
-
-
-
-
-//    if(t1 <= Max_t)
-//    {
-//        y_1 = -1/2*g*t1*t1 + v_0*t1 +y_0;
-
-//    }
-
-
-
-
-
-//        return -1*(g/2*t*t+v_0*t+y());
-//    else
-//        return g/2*t*t+v_0*t+y();
+    return Y;
 }
 
 

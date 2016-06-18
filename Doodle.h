@@ -21,6 +21,8 @@ public:
     int g;
     int v_0;
     int v_1;
+    int dy;
+    int Y;
     int y_0;
     int y_1;
     int t;
