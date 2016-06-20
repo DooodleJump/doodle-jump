@@ -5,8 +5,15 @@
 #include <QTimer>
 #include <QDebug>
 #include <Windows.h>
+#include <qmath.h>
+#include <iostream>
+
+//pair<int, int> makan;
 
 QSet<Qt::Key> pressedKeys;
+float degrees = 90.0f;
+float radians = qDegreesToRadians(degrees);
+
 
 Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
@@ -15,10 +22,14 @@ Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 
     this->installEventFilter(this);
     g = 10;
-    v_0 = 40;
-    v_1 = 0;
+
+    v_0 = 40.0;
+    v_1 = 0.0;
+
     y_0 = y();
-    t = 0;
+    x_0 = x();
+
+    t = 0.0;
 
     //***************************************************************
 
@@ -43,7 +54,11 @@ void Doodle::keyPressEvent(QKeyEvent *event)
         scene()->addItem(bullet);
 
         if (pos().x() > 0)
-           setPos(x()-10,y());
+        {
+            t = 0.0;
+            degrees = 95.0f;
+            radians = qDegreesToRadians(degrees);
+        }
         pressedKeys.remove(Qt::Key_Space);
     }
 
@@ -57,7 +72,11 @@ void Doodle::keyPressEvent(QKeyEvent *event)
         scene()->addItem(bullet);
 
         if (pos().x() + 100 < 800)
-            setPos(x()+10,y());
+        {
+            t = 0.0;
+            degrees = 95.0f;
+            radians = qDegreesToRadians(degrees);
+        }
 
         pressedKeys.remove(Qt::Key_Space);
     }
@@ -65,14 +84,24 @@ void Doodle::keyPressEvent(QKeyEvent *event)
     else if (pressedKeys.contains(Qt::Key_Left))
     {
         if (pos().x() > 0)
-            setPos(x()-10,y());
+        {
+            t = 0.0;
+            degrees = 95.0f;
+            radians = qDegreesToRadians(degrees);
+        }
+
         setPixmap(QPixmap(":/images/doodleL.png"));
     }
 
     else if (pressedKeys.contains(Qt::Key_Right))
     {
         if (pos().x() + 100 < 800)
-            setPos(x()+10,y());
+        {
+             t = 0.0;
+             degrees = 85.0f;
+             radians = qDegreesToRadians(degrees);
+        }
+
         setPixmap(QPixmap(":/images/doodleR.png"));
     }
 
@@ -92,7 +121,7 @@ void Doodle::keyReleaseEvent(QKeyEvent *event)
 }
 
 void Doodle::move_up()
-{   
+{
 
 }
 
@@ -103,41 +132,40 @@ void Doodle::move_down(int YY)
 
 void Doodle::set_pos()
 {
-    t++;
+    ++t;
     ComputeY(t);
-    setPos(x(), y() - Y );
-    qDebug() << Y << endl;
+    setPos(x() + dx, y() - Y );
+    // if collid with board set degree to 90.0f
 }
 
-int Doodle::ComputeY(int t1)
+int Doodle::ComputeY(long double t1)
 {
-    int flag = 0;
-    int Max_t = v_0/g;
-    int yoj = (v_0 * v_0) / (2 * g);
 
-    v_1 = (-1*g*t) + v_0;
+    int flag = 0;
+    float Max_t = v_0*qSin(radians)/g;
+    float yoj = (v_0 * qSin(radians) * v_0 * qSin(radians)) / (2 * g);
+
+    v_1 = (-1*g*t) + v_0*qSin(radians);
 
     if (t > 3)
         flag = 1;
 
-    dy = ( (v_1*v_1) - (v_0*v_0) ) / (-2*g);
+    dy = ( (v_1*v_1) - (v_0*qSin(radians)*v_0*qSin(radians)) ) / (-2*g);
+    dx = v_0*qCos(radians)*t;
 
     if (!flag)
         Y = yoj - dy;
     else
         Y = -1*(yoj - dy);
 
-    if (t == 2*Max_t)
+    qDebug() << " t " <<  t  << endl;
+
+    if (t <= 2*Max_t+1 && t > 2*Max_t-1)
     {
         t = -1;
     }
-    qDebug() << t << endl;
 
     return Y;
 }
-
-
-
-
 
 

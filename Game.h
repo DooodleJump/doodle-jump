@@ -1,14 +1,16 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsItemAnimation>
+#include <QGraphicsView>
 #include <QGraphicsScene>
 #include <vector>
 #include <QVector>
 #include "Doodle.h"
 #include "Board.h"
+#include <QPushButton>
+//#include "menu.h"
 
 class Game: public QGraphicsView{
 public:
@@ -16,7 +18,11 @@ public:
 
     QGraphicsScene * scene;
     QVector<Board*> board;
-    Doodle * doodle;
+    Doodle *doodle;
+   // menu *Menu;
+    Board *boardm;
+    QPushButton *button1;
+    QPushButton *button2;
 
     //Score * score;
    // Health * health;

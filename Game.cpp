@@ -16,7 +16,7 @@ Game::Game(QWidget *parent)
     setScene(scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(500,700);
+    setFixedSize(550,800);
 
     doodle = new Doodle();
     doodle->setPos(240,500);
@@ -55,10 +55,51 @@ Game::Game(QWidget *parent)
 
        board.push_back(b);
     }
-//    while(doodle->y() > 0)
-//    {
-//       doodle->setX(doodle->x() + 0.1);
-//       doodle->setY(doodle->y() - 0.5);
-//    }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    doodle = new Doodle();
+//    doodle->setPos(110,450);
+//    doodle->setFlag(QGraphicsItem::ItemIsFocusable);
+//    doodle->setFocus();
+
+//    boardm = new Board();
+//    boardm->setPos(100,600);
+
+//    button1 = new QPushButton();
+//    //button1->setIconSize()
+
+////    QPixmap p(":/images/play.jpg");
+
+//    button1->setIcon(QIcon(QPixmap(":/images/play.jpg")));
+////    button1->setIconSize(p.rect().size());
+////    button1->setGeometry(p.rect());
+
+//   // QPushButton button;
+
+//    //QBitmap()
+////    button1->resize(50,50);
+////    button1->show();
+
+////    QBitmap bitmap(QPixmap(":/images/play.jpg"));
+////    button1->setMask(bitmap.mask());
+////    button1->setGeometry(bitmap.rect());
+
+//   // button1.setMask(p.createMaskFromColor(Qt::transparent,Qt::MaskInColor));
+//   // button1->setMask(p.mask());
+
+//    scene->addItem(doodle);
+//    scene->addItem(boardm);
+//    scene->addWidget(button1);
