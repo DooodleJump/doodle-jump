@@ -34,7 +34,7 @@ Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
     //***************************************************************
 
     QTimer * timer1 = new QTimer(this);
-    connect(timer1, SIGNAL(timeout()), this, SLOT(set_pos()));
+    connect(timer1, SIGNAL( timeout()), this, SLOT(set_pos()));
 
     timer1->start(100);
 
@@ -43,6 +43,7 @@ Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 
 void Doodle::keyPressEvent(QKeyEvent *event)
 {
+    //flag = 1;
     pressedKeys.insert((Qt::Key)event->key());
 
     if( pressedKeys.contains(Qt::Key_Space) && pressedKeys.contains(Qt::Key_Left) )
@@ -113,6 +114,11 @@ void Doodle::keyPressEvent(QKeyEvent *event)
          scene()->addItem(bullet);
          pressedKeys.remove(Qt::Key_Space);
     }
+    else{
+        t = 0.0;
+        degrees = 90.0f;
+        radians = qDegreesToRadians(degrees);
+    }
 }
 
 void Doodle::keyReleaseEvent(QKeyEvent *event)
@@ -122,7 +128,26 @@ void Doodle::keyReleaseEvent(QKeyEvent *event)
 
 void Doodle::move_up()
 {
+//    QList<QGraphicsItem *> colliding_items = collidingItemsD();
 
+
+//    for (int i = 0, n = colliding_items.size(); i < n; ++i){
+//        if (typeid(*(colliding_items[i])) == typeid(Board)){
+//            t = 0.0;
+//            degrees = 90.0f;
+//            radians = qDegreesToRadians(degrees);
+//            setPos(x() , y());
+//            //game->score->increase();
+
+////            scene()->removeItem(colliding_items[i]);
+////            scene()->removeItem(this);
+
+////            delete colliding_items[i];
+////            delete this;
+
+//            return;
+//        }
+//    }
 }
 
 void Doodle::move_down(int YY)
@@ -132,10 +157,30 @@ void Doodle::move_down(int YY)
 
 void Doodle::set_pos()
 {
-    ++t;
-    ComputeY(t);
-    setPos(x() + dx, y() - Y );
-    // if collid with board set degree to 90.0f
+   // int flag = 0;
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+
+
+    for (int i = 0, n = colliding_items.size(); i < n; ++i){
+        if (typeid(*(colliding_items[i])) == typeid(Board)){
+            t = 0.0;
+            degrees = 90.0f;
+            radians = qDegreesToRadians(degrees);
+            //flag = 1;
+
+        }
+    }
+   // if(flag){
+        ++t;
+        ComputeY(t);
+        setPos(x() + dx, y() - Y );
+//    }
+//    else{
+//        t = 2;
+//        ComputeY(t);
+//        setPos(x() + dx, y() + Y );
+//    }
+
 }
 
 int Doodle::ComputeY(long double t1)
