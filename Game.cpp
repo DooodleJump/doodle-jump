@@ -4,6 +4,10 @@
 #include <time.h>
 #include "Bullet.h"
 #include <QKeyEvent>
+#include "Enemy.h"
+#include <QDebug>
+#include <string.h>
+#include <QString>
 
 
 
@@ -27,34 +31,82 @@ Game::Game(QWidget *parent)
     scene->addItem(doodle);
 
     qsrand(time(NULL));
-    int n = rand()%10 + 10;
-    for (int i = 0; i < n; ++i)
-    {
-       Board *b = new Board();
-       b->setX( (rand() % 30)*15 );
-       b->setY( (rand() % 50)*15 );
+//    int n = rand()%10 + 10;
+//    for (int i = 0; i < n; ++i)
+//    {
+//       Board *b = new Board();
+//       b->setX( (rand() % 30)*15 );
+//       b->setY( (rand() % 50)*15 );
 
-       for (int j = 0; j < i-1; ++j){
-           while(b->x() < board[j]->x()+30 && b->x() > board[j]->x()-30)
-           {
-               b->setX( (rand() % 30)*15 );
-           }
-       }
+//       for (int j = 0; j < i-1; ++j){
+//           while(b->x() < board[j]->x()+30 && b->x() > board[j]->x()-30)
+//           {
+//               b->setX( (rand() % 30)*15 );
+//           }
+//       }
 
-       for (int j = 0; j < i-1; ++j){
-           while(b->y() < board[j]->y()+30 && b->y() > board[j]->y()-30)
-           {
-               b->setY( (rand() % 50)*15 );
-           }
-       }
+//       for (int j = 0; j < i-1; ++j){
+//           while(b->y() < board[j]->y()+30 && b->y() > board[j]->y()-30)
+//           {
+//               b->setY( (rand() % 50)*15 );
+//           }
+//       }
+//        qDebug() << b->x() << "    " << b->y() << endl;
+        QString filename = "readme.txt";
+        QFile file(filename);
 
-       b->setPos(b->x(), b->y());
-       b->setFlag(QGraphicsItem::ItemIsFocusable);
+        if (!file.open(QIODevice::ReadOnly))
+               qDebug() << "fail";
+        QTextStream in(&file);
+        char ch;
+        QString name;
+        int fx,fy;
+        int line_count=0;
+        QString line[100];
 
-       scene->addItem(b);
+        while( !in.atEnd())
+        {
+            line[line_count]=in.readLine();
+            line_count++;
+        }
+        qDebug() << "line_count     " << line_count <<endl;
+       for (int k =0 ; k < line_count ; k++){
+            qDebug() << "in for" << endl;
+            in >> ch >> name >> ch >> ch >> fx >> ch >> fy >> ch;
+           // if(name== QString("board")){
 
-       board.push_back(b);
+
+                Board *b = new Board();
+                //in >> fx  >> fy ;
+                b->setX (fx);
+                b->setY(fy);
+                qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
+                b->setPos(b->x(),b->y());
+                b->setFlag(QGraphicsItem::ItemIsFocusable);
+                scene->addItem(b);
+
+                board.push_back(b);
+            //}
+
+
+
+//       if (i == 12){
+//           enemy = new Enemy();
+//           enemy->setPos(b->x(), b->y());
+//           enemy->setFlag(QGraphicsItem::ItemIsFocusable);
+//           scene->addItem(enemy);
+//       }
+
+            file.close();
     }
+    enemy = new Enemy();
+    enemy->setPos(200,400);
+    enemy->setFlag(QGraphicsItem::ItemIsFocusable);
+    enemy->setFocus();
+    scene->addItem(enemy);
+
+    score = new Score();
+    scene->addItem(score);
 }
 
 
