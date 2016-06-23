@@ -2,7 +2,17 @@
 
 
 
-Spring::Spring(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
+Spring::Spring(QGraphicsItem *parent)
 {
-   // setPixmap(QPixmap(":/images/board.png"));
+    // setPixmap(QPixmap(":/images/board.png"));
+}
+
+void Spring::move()
+{
+
+}
+
+void Spring::ability()
+{
+
 }

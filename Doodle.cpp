@@ -12,6 +12,7 @@
 
 extern Game * game;
 
+int tp;
 QSet<Qt::Key> pressedKeys;
 float degrees = 90.0f;
 float radians = qDegreesToRadians(degrees);
@@ -110,7 +111,7 @@ void Doodle::keyPressEvent(QKeyEvent *event)
 
     else if (pressedKeys.contains(Qt::Key_Right))
     {
-        qDebug() << " jump ";
+        //qDebug() << " jump ";
         //jump->play();
         if (pos().x() + 100 < 800)
         {
@@ -139,33 +140,30 @@ void Doodle::keyReleaseEvent(QKeyEvent *event)
 
 void Doodle::collide()
 {
-    //isCOllide = false;
     QList<QGraphicsItem *> colliding_items = collidingItems();
 
-    for (int i = 0, n = colliding_items.size(); i < n; ++i)
-    {
         for (int i = game->board.size() - 1; i > 0; --i)
         {
             if (collidesWithItem(game->board[i]))
             {
                  isCOllide = true;
                  y_board_jadid = game->board[i]->y();
-
                  timer1->stop();
-                 y_0 = game->board[i]->y()-40;
-                // setX(game->board[i]->x());
-                 timer1->start(100);
-
                  t = 0.0;
                  degrees = 90.0f;
                  radians = qDegreesToRadians(degrees);
+                 setY(game->board[i]->y() - 55);
+                 timer1->start(100);
 
                  set_board();
                  colliding_items.removeOne(game->board[i]);
                  break;
-                 //return;
             }
-            else isCOllide = false;
+            else
+            {
+                isCOllide = false;
+            }
+
         }
 
         if (game->activeEnemy)
@@ -174,14 +172,19 @@ void Doodle::collide()
                 game->scene->removeItem(game->enemy);
                 fall();
             }
-    }
 }
 
 void Doodle::set_pos()
 {
     ++t;
-    ComputeY();
     collide();
+    ComputeY();
+
+    if (!isCOllide)
+    {
+        t = tp;
+    }
+
 
     if ( t == -1)
     {
@@ -189,6 +192,7 @@ void Doodle::set_pos()
         degrees = 90.0f;
         radians = qDegreesToRadians(degrees);
     }
+
 
     if (x() + dx > 450)
         setPos(10, y() - Y);
@@ -198,7 +202,9 @@ void Doodle::set_pos()
 
 void Doodle::fall()
 {
-    qDebug() << "fall" << endl;
+    timer1->stop();
+    t = tp;
+    //qDebug() << "fall" << endl;
 }
 
 void Doodle::ComputeY()
@@ -220,7 +226,8 @@ void Doodle::ComputeY()
     else
         Y = -1*(yoj - dy);
 
-    if (t <= 2*Max_t+1 && t > 2*Max_t-1 )
+    tp = t;
+    if (t <= 2*Max_t+1 && t > 2*Max_t-1)
     {
        t = -1;
     }
@@ -230,27 +237,28 @@ void Doodle::set_board()
 {
     if (y() < 350)
     {
-        if (isCOllide)
-        {
             int fasele = y_board_ghabli - y_board_jadid;
             if (fasele > 0)
             {
+                game->score->increase(10*fasele);
                 timer1->stop();
                 move_down(fasele);
                 timer1->start(100);
 
                 if (game->activeEnemy)
                     game->enemy->move_down(fasele);
-
-                y_board_ghabli = y_board_jadid;
+                if (y_board_jadid < 10)
+                    y_board_ghabli = -1*y_board_jadid;
+                else
+                    y_board_ghabli = y_board_jadid;
 
                 for (int i = 0; i < game->board.size(); ++i)
                 {
                     game->board[i]->setY(game->board[i]->y() + fasele);
+                    if (game->board[i]->y() > 700)
+                        game->scene->removeItem(game->board[i]);
                 }
             }
-            isCOllide = false;
-        }
     }
 }
 

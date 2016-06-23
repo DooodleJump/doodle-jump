@@ -5,8 +5,9 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QGraphicsItem>
+#include "Enemy.h"
 
-class Bluemon: public QObject,public QGraphicsPixmapItem, public Enemy{
+class Bluemon: public Enemy{
     Q_OBJECT
 public:
     Bluemon(QGraphicsItem * parent=0);

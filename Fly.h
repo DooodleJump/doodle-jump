@@ -5,8 +5,9 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QGraphicsItem>
+#include "Enemy.h"
 
-class Fly: public QObject,public QGraphicsPixmapItem, public Enemy{
+class Fly: public Enemy{
     Q_OBJECT
 public:
     Fly(QGraphicsItem * parent=0);

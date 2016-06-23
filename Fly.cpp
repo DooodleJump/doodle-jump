@@ -1,7 +1,7 @@
 #include "Fly.h"
 
 
-Fly::Fly(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent)
+Fly::Fly(QGraphicsItem *parent)
 {
     setPixmap(QPixmap(":/images/bulemon.png"));
 

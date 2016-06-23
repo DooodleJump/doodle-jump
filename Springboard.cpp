@@ -1,7 +1,17 @@
 #include "Springboard.h"
 
 
-Springboard::Springboard(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
+Springboard::Springboard(QGraphicsItem *parent)
 {
     // setPixmap(QPixmap(":/images/board.png"));
+}
+
+void Springboard::move()
+{
+
+}
+
+void Springboard::ability()
+{
+
 }

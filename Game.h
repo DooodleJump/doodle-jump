@@ -4,7 +4,9 @@
 #include "Doodle.h"
 #include "Board.h"
 #include "Score.h"
+#include "Button.h"
 #include "Enemy.h"
+#include "Spring.h"
 #include <QPushButton>
 //#include <QMediaPlayer>
 
@@ -17,13 +19,14 @@ public:
     Doodle *doodle;
     Enemy *enemy;
     Score *score;
+    Spring *spring;
     bool activeEnemy;
 
 
 
 ////    Board *boardm;
-////    QPushButton *button1;
-////    QPushButton *button2;
+    Button *bplay;
+//    QPushButton *button2;
 ////    Health * health;
 
 };

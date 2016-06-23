@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     Blueboard.cpp \
     Bluemon.cpp \
     Fly.cpp \
-    Missile.cpp
+    Missile.cpp \
+    Button.cpp
 
 HEADERS  += \
     Game.h \
@@ -46,7 +47,8 @@ HEADERS  += \
     Brownboard.h \
     Blueboard.h \
     Bluemon.h \
-    Fly.h
+    Fly.h \
+    Button.h
 
 RESOURCES += \
     res.qrc \

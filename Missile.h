@@ -4,14 +4,15 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
 #include <QObject>
+#include "Award.h"
 
-class Missile:public QObject,public QGraphicsPixmapItem , public Award{
+class Missile:public Award{
     Q_OBJECT
 public:
    Missile(QGraphicsItem * parent=0);
 public slots:
-   void move();
-   void ability();
+   //void move();
+   virtual void ability();
 };
 
 #endif // MISSILE_H

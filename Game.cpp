@@ -14,6 +14,7 @@
 #include <iostream>
 #include "Score.h"
 //#include "Missile.h"
+#include "Spring.h"
 #include <fstream>
 #include <cstdio>
 #include <QTextStream>
@@ -30,6 +31,24 @@ Game::Game(QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(sceneWight,sceneHeight);
+
+//    bplay = new Button();
+//    bplay->setGeometry(200, 300, 40, 70);
+//    doodle->setFlag(QGraphicsItem::ItemIsFocusable);
+//    scene->addWidget(bplay);
+
+//    while(!bplay->Pressed)
+//    {
+//        doodle = new Doodle();
+//        doodle->setPos(90,650);
+//        doodle->setFlag(QGraphicsItem::ItemIsFocusable);
+//        doodle->setFocus();
+//        scene->addItem(doodle);
+
+//        Board *b = new Board();
+//        b->setPos(90, 645);
+//        scene->addItem(b);
+//    }
 
     doodle = new Doodle();
     doodle->setPos(240,650);
@@ -59,7 +78,8 @@ Game::Game(QWidget *parent)
            int line_count=0;
            QString line[100];
 
-            QFile file("C:/Users/PC/Documents/GitHub/doodle-jump/readme.txt");
+            QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/readme.txt");
+            //QFile("readme.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";
             if(file.exists()){
@@ -87,6 +107,18 @@ Game::Game(QWidget *parent)
                 scene->addItem(b);
                 board.push_back(b);
 
+                if (type == 1)
+                {
+                    qDebug() << "fanar";
+                    spring = new Spring();
+                    spring->setPos(fx,fy +10);
+                    spring->setFlag(QGraphicsItem::ItemIsFocusable);
+                    scene->addItem(spring);
+                }
+                else if(type == 2)
+                {
+
+                }
             }
 
 

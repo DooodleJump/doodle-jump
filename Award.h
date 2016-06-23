@@ -12,7 +12,7 @@ public:
     Award(QGraphicsItem * parent=0);
 public slots:
     void move();
-    void ability() = 0;
+    virtual void ability() = 0;
 };
 
 #endif // AWARD_H

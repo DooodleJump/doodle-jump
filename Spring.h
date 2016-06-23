@@ -4,14 +4,15 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
 #include <QObject>
+#include "Award.h"
 
-class Spring:public QObject,public QGraphicsPixmapItem , public Award{
+class Spring: public Award{
     Q_OBJECT
 public:
    Spring(QGraphicsItem * parent=0);
 public slots:
    void move();
-   void ability();
+   virtual void ability();
 };
 
 #endif // SPRING_H

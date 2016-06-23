@@ -4,14 +4,15 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
 #include <QObject>
+#include "Award.h"
 
-class Springboard:public QObject,public QGraphicsPixmapItem , public Award{
+class Springboard: public Award{
     Q_OBJECT
 public:
    Springboard(QGraphicsItem * parent=0);
 public slots:
    void move();
-   void ability();
+   virtual void ability();
 };
 
 
