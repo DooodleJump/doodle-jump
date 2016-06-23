@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui \
+         multimedia
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,7 +20,15 @@ SOURCES += main.cpp \
     Enemy.cpp \
     Score.cpp \
     Board.cpp \
-    Bullet.cpp
+    Bullet.cpp \
+    Award.cpp \
+    Umbrella.cpp \
+    Spring.cpp \
+    Springboard.cpp \
+    Brownboard.cpp \
+    Blueboard.cpp \
+    Bluemon.cpp \
+    Fly.cpp
 
 HEADERS  += \
     Game.h \
@@ -26,8 +36,20 @@ HEADERS  += \
     Enemy.h \
     Score.h \
     Board.h \
-    Bullet.h
+    Bullet.h \
+    Award.h \
+    Umbrella.h \
+    Missile.h \
+    Spring.h \
+    Springboard.h \
+    Brownboard.h \
+    Blueboard.h \
+    Bluemon.h \
+    Fly.h
 
 RESOURCES += \
     res.qrc \
     res.qrc
+
+OTHER_FILES += \
+    map.txt

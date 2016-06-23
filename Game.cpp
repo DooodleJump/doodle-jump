@@ -8,8 +8,15 @@
 #include <QDebug>
 #include <string.h>
 #include <QString>
-
-
+#include <QDebug>
+#include <QFile>
+#include <iostream>
+#include "Score.h"
+#include <fstream>
+#include <cstdio>
+#include <QTextStream>
+#define sceneHeight 800
+#define sceneWight 470
 
 Game::Game(QWidget *parent)
 {
@@ -20,17 +27,91 @@ Game::Game(QWidget *parent)
     setScene(scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(550,800);
+    setFixedSize(sceneWight,sceneHeight);
 
     doodle = new Doodle();
-    doodle->setPos(240,500);
-
+    doodle->setPos(240,650);
     doodle->setFlag(QGraphicsItem::ItemIsFocusable);
     doodle->setFocus();
-
     scene->addItem(doodle);
 
-    qsrand(time(NULL));
+    enemy = new Enemy();
+    enemy->setPos(20, 100);
+    enemy->setFlag(QGraphicsItem::ItemIsFocusable);
+    scene->addItem(enemy);
+    activeEnemy = true;
+
+    Board *b = new Board();
+    b->setPos(243, 645);
+    scene->addItem(b);
+    board.push_back(b);
+
+    QString name;
+                int fx,fy;
+                int line_count=0;
+                QString line[100];
+
+            QFile file("C:/Users/PC/Documents/GitHub/doodle-jump/readme.txt");
+           // QFile file(":/Other files/map.txt");
+            if (!file.open(QIODevice::ReadOnly))
+                   qDebug() << "fail";
+            if(file.exists()){
+
+            qDebug() << "ok";
+    }
+            QTextStream in(&file);
+            while( !in.atEnd())
+            {
+                line[line_count]=in.readLine();
+                line_count++;
+            }
+            qDebug() << "line_count     " << line_count << endl;
+           for (int k =0 ; k < line_count ; k++){
+                name = line[k];
+                   fx = name.split(" ")[0].toInt();
+                  fy =  name.split(" ")[1].toInt();
+                    Board *b = new Board();
+                    b->setX (fx);
+                    b->setY(fy);
+                    qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
+                    b->setPos(b->x(),b->y());
+                    b->setFlag(QGraphicsItem::ItemIsFocusable);
+                    scene->addItem(b);
+
+                    board.push_back(b);
+                }
+
+
+           score = new Score();
+           scene->addItem(score);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+//    qsrand(time(NULL));
 //    int n = rand()%10 + 10;
 //    for (int i = 0; i < n; ++i)
 //    {
@@ -51,107 +132,12 @@ Game::Game(QWidget *parent)
 //               b->setY( (rand() % 50)*15 );
 //           }
 //       }
-//        qDebug() << b->x() << "    " << b->y() << endl;
-        QString filename = "readme.txt";
-        QFile file(filename);
 
-        if (!file.open(QIODevice::ReadOnly))
-               qDebug() << "fail";
-        QTextStream in(&file);
-        char ch;
-        QString name;
-        int fx,fy;
-        int line_count=0;
-        QString line[100];
+//       b->setPos(b->x(), b->y());
+//       b->setFlag(QGraphicsItem::ItemIsFocusable);
 
-        while( !in.atEnd())
-        {
-            line[line_count]=in.readLine();
-            line_count++;
-        }
-        qDebug() << "line_count     " << line_count <<endl;
-       for (int k =0 ; k < line_count ; k++){
-            qDebug() << "in for" << endl;
-            in >> ch >> name >> ch >> ch >> fx >> ch >> fy >> ch;
-           // if(name== QString("board")){
+//       scene->addItem(b);
+//       board.push_back(b);
+//   }
+//}
 
-
-                Board *b = new Board();
-                //in >> fx  >> fy ;
-                b->setX (fx);
-                b->setY(fy);
-                qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
-                b->setPos(b->x(),b->y());
-                b->setFlag(QGraphicsItem::ItemIsFocusable);
-                scene->addItem(b);
-
-                board.push_back(b);
-            //}
-
-
-
-//       if (i == 12){
-//           enemy = new Enemy();
-//           enemy->setPos(b->x(), b->y());
-//           enemy->setFlag(QGraphicsItem::ItemIsFocusable);
-//           scene->addItem(enemy);
-//       }
-
-            file.close();
-    }
-    enemy = new Enemy();
-    enemy->setPos(200,400);
-    enemy->setFlag(QGraphicsItem::ItemIsFocusable);
-    enemy->setFocus();
-    scene->addItem(enemy);
-
-    score = new Score();
-    scene->addItem(score);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    doodle = new Doodle();
-//    doodle->setPos(110,450);
-//    doodle->setFlag(QGraphicsItem::ItemIsFocusable);
-//    doodle->setFocus();
-
-//    boardm = new Board();
-//    boardm->setPos(100,600);
-
-//    button1 = new QPushButton();
-//    //button1->setIconSize()
-
-////    QPixmap p(":/images/play.jpg");
-
-//    button1->setIcon(QIcon(QPixmap(":/images/play.jpg")));
-////    button1->setIconSize(p.rect().size());
-////    button1->setGeometry(p.rect());
-
-//   // QPushButton button;
-
-//    //QBitmap()
-////    button1->resize(50,50);
-////    button1->show();
-
-////    QBitmap bitmap(QPixmap(":/images/play.jpg"));
-////    button1->setMask(bitmap.mask());
-////    button1->setGeometry(bitmap.rect());
-
-//   // button1.setMask(p.createMaskFromColor(Qt::transparent,Qt::MaskInColor));
-//   // button1->setMask(p.mask());
-
-//    scene->addItem(doodle);
-//    scene->addItem(boardm);
-//    scene->addWidget(button1);

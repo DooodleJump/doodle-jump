@@ -4,8 +4,9 @@
 #include <QList>
 #include <QTimerEvent>
 #include <QtEvents>
-//#include "Enemy.h"
+#include "Enemy.h"
 #include "Game.h"
+#include "Board.h"
 
 extern Game * game;
 
@@ -21,22 +22,25 @@ Bullet::Bullet(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent)
 
 void Bullet::move()
 {
-//    QList<QGraphicsItem *> colliding_items = collidingItems();
+    QList<QGraphicsItem *> colliding_items = collidingItems();
 
 
-//    for (int i = 0, n = colliding_items.size(); i < n; ++i){
-//        if (typeid(*(colliding_items[i])) == typeid(Enemy)){
-//            game->score->increase();
+    for (int i = 0, n = colliding_items.size(); i < n; ++i)
+    {
+        if (typeid(*(colliding_items[i])) == typeid(Enemy))
+        {
+            //game->score->increase();
 
-//            scene()->removeItem(colliding_items[i]);
-//            scene()->removeItem(this);
+            game->scene->removeItem(colliding_items[i]);
+            game->scene->removeItem(this);
 
-//            delete colliding_items[i];
-//            delete this;
+            game->activeEnemy = false;
+            delete colliding_items[i];
+            delete this;
 
-//            return;
-//        }
-//    }
+            return;
+        }
+    }
 
     setPos(x(),y()-10);
     if (pos().y() < 0){

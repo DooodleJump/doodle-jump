@@ -3,11 +3,10 @@
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
+//#include <QMediaPlayer>
 #include <iostream>
 #include <QObject>
-#include "Board.h"
 #include <QEvent>
-//#include <QMediaPlayer>
 
 class Doodle : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
@@ -30,20 +29,21 @@ public:
     float x_0;
     float x_1;
     float t;
+    float y_board_ghabli;
+    float y_board_jadid;
+    bool isCOllide;
 
-   // float Y;
-    Board *b;
+    //QMediaPlayer *jump;
 
 private:
-    int ComputeY(long double t1);
+    void ComputeY();
 
 private slots:
-    void move_up();
-    void move_down(int YY);
+    void move_down(int fasele);
+    void set_board();
+    void collide();
     void set_pos();
-
-//private:
-    //QMediaPlayer * bulletsound;
+    void fall();
 };
 
 #endif // DOODLE_H

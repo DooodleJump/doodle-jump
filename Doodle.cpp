@@ -1,49 +1,60 @@
 #include "Doodle.h"
-#include "Bullet.h"
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QTimer>
 #include <QDebug>
-#include <Windows.h>
 #include <qmath.h>
-#include <iostream>
+#include <time.h>
+#include <QDebug>
+#include "Bullet.h"
+#include "Game.h"
+#include "Board.h"
 
-//pair<int, int> makan;
+extern Game * game;
 
 QSet<Qt::Key> pressedKeys;
 float degrees = 90.0f;
 float radians = qDegreesToRadians(degrees);
+QTimer * timer1;
+QTimer * timer2;
 
 
 Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
 
     setPixmap(QPixmap(":/images/doodleR.png"));
+//    jump = new QMediaPlayer();
+//    jump->setMedia(QUrl(":/sounds/jump.mp3"));
 
     this->installEventFilter(this);
+
     g = 10;
 
     v_0 = 40.0;
     v_1 = 0.0;
 
-    y_0 = y();
+    y_0 = 490;
     x_0 = x();
 
     t = 0.0;
 
+    y_board_ghabli = 645;
+
     //***************************************************************
 
-    QTimer * timer1 = new QTimer(this);
-    connect(timer1, SIGNAL( timeout()), this, SLOT(set_pos()));
-
+    timer1 = new QTimer(this);
+    connect(timer1, SIGNAL(timeout()), this, SLOT(set_pos()));
     timer1->start(100);
+
+    timer2 = new QTimer(this);
+    connect(timer2, SIGNAL(timeout()), this, SLOT(collide()));
+
 
     //****************************************************************
 }
 
 void Doodle::keyPressEvent(QKeyEvent *event)
 {
-    //flag = 1;
     pressedKeys.insert((Qt::Key)event->key());
 
     if( pressedKeys.contains(Qt::Key_Space) && pressedKeys.contains(Qt::Key_Left) )
@@ -51,16 +62,17 @@ void Doodle::keyPressEvent(QKeyEvent *event)
         setPixmap(QPixmap(":/images/doodleS.png"));
 
         Bullet * bullet = new Bullet();
-        bullet->setPos(x()+15,y()-10);
+        bullet->setPos(x() + 15, y() - 10);
         scene()->addItem(bullet);
 
         if (pos().x() > 0)
         {
-            t = 0.0;
-            degrees = 95.0f;
-            radians = qDegreesToRadians(degrees);
+            if (degrees < 94.0f || degrees > 98.0f)
+            {
+                degrees = 97.0f;
+                radians = qDegreesToRadians(degrees);
+            }
         }
-        pressedKeys.remove(Qt::Key_Space);
     }
 
 
@@ -69,40 +81,45 @@ void Doodle::keyPressEvent(QKeyEvent *event)
         setPixmap(QPixmap(":/images/doodleS.png"));
 
         Bullet * bullet = new Bullet();
-        bullet->setPos(x()+15,y()-10);
+        bullet->setPos(x() + 15,y() - 10);
         scene()->addItem(bullet);
 
         if (pos().x() + 100 < 800)
         {
-            t = 0.0;
-            degrees = 95.0f;
-            radians = qDegreesToRadians(degrees);
+            if (degrees > 86.0f || degrees < 82.0f)
+            {
+                degrees = 83.0f;
+                radians = qDegreesToRadians(degrees);
+            }
         }
-
-        pressedKeys.remove(Qt::Key_Space);
     }
 
     else if (pressedKeys.contains(Qt::Key_Left))
     {
+        //jump->play();
         if (pos().x() > 0)
         {
-            t = 0.0;
-            degrees = 95.0f;
-            radians = qDegreesToRadians(degrees);
+            if (degrees < 94.0f || degrees > 98.0f)
+            {
+                degrees = 97.0f;
+                radians = qDegreesToRadians(degrees);
+            }
         }
-
         setPixmap(QPixmap(":/images/doodleL.png"));
     }
 
     else if (pressedKeys.contains(Qt::Key_Right))
     {
+        qDebug() << " jump ";
+        //jump->play();
         if (pos().x() + 100 < 800)
         {
-             t = 0.0;
-             degrees = 85.0f;
-             radians = qDegreesToRadians(degrees);
+             if (degrees > 86.0f || degrees < 82.0f)
+             {
+                 degrees = 83.0f;
+                 radians = qDegreesToRadians(degrees);
+             }
         }
-
         setPixmap(QPixmap(":/images/doodleR.png"));
     }
 
@@ -110,14 +127,8 @@ void Doodle::keyPressEvent(QKeyEvent *event)
     {
          setPixmap(QPixmap(":/images/doodleS.png"));
          Bullet * bullet = new Bullet();
-         bullet->setPos(x()+15,y()-10);
+         bullet->setPos(x() + 15,y() - 10);
          scene()->addItem(bullet);
-         pressedKeys.remove(Qt::Key_Space);
-    }
-    else{
-        t = 0.0;
-        degrees = 90.0f;
-        radians = qDegreesToRadians(degrees);
     }
 }
 
@@ -126,66 +137,71 @@ void Doodle::keyReleaseEvent(QKeyEvent *event)
      pressedKeys.remove((Qt::Key)event->key());
 }
 
-void Doodle::move_up()
+void Doodle::collide()
 {
-//    QList<QGraphicsItem *> colliding_items = collidingItemsD();
+    QList<QGraphicsItem *> colliding_items = collidingItems();
 
+    for (int i = 0, n = colliding_items.size(); i < n; ++i)
+    {
+        for (int i = game->board.size() - 1; i > 0; --i)
+        {
+            if (collidesWithItem(game->board[i]))
+            {
+                 isCOllide = true;
+                 y_board_jadid = game->board[i]->y();
 
-//    for (int i = 0, n = colliding_items.size(); i < n; ++i){
-//        if (typeid(*(colliding_items[i])) == typeid(Board)){
-//            t = 0.0;
-//            degrees = 90.0f;
-//            radians = qDegreesToRadians(degrees);
-//            setPos(x() , y());
-//            //game->score->increase();
+                 timer1->stop();
+                 y_0 = game->board[i]->y()-40;
+                 setX(game->board[i]->x());
+                 timer1->start(100);
 
-////            scene()->removeItem(colliding_items[i]);
-////            scene()->removeItem(this);
+                 t = 0.0;
+                 degrees = 90.0f;
+                 radians = qDegreesToRadians(degrees);
 
-////            delete colliding_items[i];
-////            delete this;
+                 set_board();
+                 colliding_items.removeOne(game->board[i]);
+                 break;
+                 //return;
+            }
+            else isCOllide = false;
+        }
 
-//            return;
-//        }
-//    }
-}
-
-void Doodle::move_down(int YY)
-{
-    setPos(x(),y() + YY );
+        if (game->activeEnemy)
+            if (collidesWithItem(game->enemy))
+            {
+                game->scene->removeItem(game->enemy);
+                fall();
+            }
+    }
 }
 
 void Doodle::set_pos()
 {
-   // int flag = 0;
-    QList<QGraphicsItem *> colliding_items = collidingItems();
+    ++t;
+    ComputeY();
+    collide();
 
-
-    for (int i = 0, n = colliding_items.size(); i < n; ++i){
-        if (typeid(*(colliding_items[i])) == typeid(Board)){
-            t = 0.0;
-            degrees = 90.0f;
-            radians = qDegreesToRadians(degrees);
-            //flag = 1;
-
-        }
+    if ( t == -1)
+    {
+        setY(y_0 + Y);
+        degrees = 90.0f;
+        radians = qDegreesToRadians(degrees);
     }
-   // if(flag){
-        ++t;
-        ComputeY(t);
-        setPos(x() + dx, y() - Y );
-//    }
-//    else{
-//        t = 2;
-//        ComputeY(t);
-//        setPos(x() + dx, y() + Y );
-//    }
 
+    if (x() + dx > 450)
+        setPos(10, y() - Y);
+    else
+        setPos(x() + dx, y() - Y);
 }
 
-int Doodle::ComputeY(long double t1)
+void Doodle::fall()
 {
+    qDebug() << "fall" << endl;
+}
 
+void Doodle::ComputeY()
+{
     int flag = 0;
     float Max_t = v_0*qSin(radians)/g;
     float yoj = (v_0 * qSin(radians) * v_0 * qSin(radians)) / (2 * g);
@@ -203,14 +219,42 @@ int Doodle::ComputeY(long double t1)
     else
         Y = -1*(yoj - dy);
 
-    qDebug() << " t " <<  t  << endl;
-
-    if (t <= 2*Max_t+1 && t > 2*Max_t-1)
+    if (t <= 2*Max_t+1 && t > 2*Max_t-1 )
     {
-        t = -1;
+       t = -1;
     }
-
-    return Y;
 }
 
+void Doodle::set_board()
+{
+    if (y() < 350)
+    {
+        if (isCOllide)
+        {
+            int fasele = y_board_ghabli - y_board_jadid;
+            if (fasele > 0)
+            {
+                timer1->stop();
+                move_down(fasele);
+                timer1->start(100);
+
+                if (game->activeEnemy)
+                    game->enemy->move_down(fasele);
+
+                y_board_ghabli = y_board_jadid;
+
+                for (int i = 0; i < game->board.size(); ++i)
+                {
+                    game->board[i]->setY(game->board[i]->y() + fasele);
+                }
+            }
+            isCOllide = false;
+        }
+    }
+}
+
+void Doodle::move_down(int fasele)
+{
+    setY(y() + fasele);
+}
 

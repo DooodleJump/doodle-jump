@@ -1,16 +1,12 @@
-#ifndef GAME_H
-#define GAME_H
-
-#include <QWidget>
-#include <QGraphicsItemAnimation>
 #include <QGraphicsView>
 #include <QGraphicsScene>
-#include <vector>
 #include <QVector>
 #include "Doodle.h"
 #include "Board.h"
+#include "Score.h"
+#include "Enemy.h"
 #include <QPushButton>
-//#include "menu.h"
+//#include <QMediaPlayer>
 
 class Game: public QGraphicsView{
 public:
@@ -19,14 +15,17 @@ public:
     QGraphicsScene * scene;
     QVector<Board*> board;
     Doodle *doodle;
-   // menu *Menu;
-    Board *boardm;
-    QPushButton *button1;
-    QPushButton *button2;
+    Enemy *enemy;
+    Score *score;
+    bool activeEnemy;
 
-    //Score * score;
-   // Health * health;
+
+
+////    Board *boardm;
+////    QPushButton *button1;
+////    QPushButton *button2;
+////    Health * health;
 
 };
 
-#endif // GAME_H
+

@@ -11,5 +11,16 @@
         <file>my.jpg</file>
         <file>play.jpg</file>
         <file>doodlejump.jpg</file>
+        <file>enemy.png</file>
+        <file>Bluemon.png</file>
+        <file>bossMon.png</file>
+        <file>Caterpillar.png</file>
+        <file>dontShoot.png</file>
+        <file>Fly1.png</file>
+        <file>Hole.png</file>
+        <file>Redball.png</file>
+        <file>Spider.png</file>
+        <file>Toad.png</file>
+        <file>UFO1.png</file>
     </qresource>
 </RCC>
