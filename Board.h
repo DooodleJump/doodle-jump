@@ -6,13 +6,15 @@
 #include <QObject>
 #include <QTimer>
 
+
 class Board : public QObject,public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     Board(QGraphicsItem * parent=0);
 
 public slots:
-    void move();
+    void move_down(int fasele);
+
 };
 
 #endif // BOARD_H
