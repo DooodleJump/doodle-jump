@@ -8,10 +8,12 @@
 #include <QDebug>
 #include <string.h>
 #include <QString>
+#include <string>
 #include <QDebug>
 #include <QFile>
 #include <iostream>
 #include "Score.h"
+//#include "Missile.h"
 #include <fstream>
 #include <cstdio>
 #include <QTextStream>
@@ -46,19 +48,24 @@ Game::Game(QWidget *parent)
     scene->addItem(b);
     board.push_back(b);
 
-    QString name;
-                int fx,fy;
-                int line_count=0;
-                QString line[100];
+           b->setPos(b->x(), b->y());
+           b->setFlag(QGraphicsItem::ItemIsFocusable);
+
+           scene->addItem(b);
+           board.push_back(b);
+
+           QString name;
+           int fx,fy,type;
+           int line_count=0;
+           QString line[100];
 
             QFile file("C:/Users/PC/Documents/GitHub/doodle-jump/readme.txt");
-           // QFile file(":/Other files/map.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";
             if(file.exists()){
-
             qDebug() << "ok";
-    }
+            }
+
             QTextStream in(&file);
             while( !in.atEnd())
             {
@@ -66,47 +73,44 @@ Game::Game(QWidget *parent)
                 line_count++;
             }
             qDebug() << "line_count     " << line_count << endl;
-           for (int k =0 ; k < line_count ; k++){
+            for (int k =0 ; k < line_count ; k++){
                 name = line[k];
-                   fx = name.split(" ")[0].toInt();
-                  fy =  name.split(" ")[1].toInt();
-                    Board *b = new Board();
-                    b->setX (fx);
-                    b->setY(fy);
-                    qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
-                    b->setPos(b->x(),b->y());
-                    b->setFlag(QGraphicsItem::ItemIsFocusable);
-                    scene->addItem(b);
+                type = name.split(" ")[0].toInt();
+                fx =  name.split(" ")[1].toInt();
+                fy = name.split(" ")[2].toInt();
+                Board *b = new Board();
+                b->setX (fx);
+                b->setY(fy);
+                qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
+                b->setPos(b->x(),b->y());
+                b->setFlag(QGraphicsItem::ItemIsFocusable);
+                scene->addItem(b);
+                board.push_back(b);
 
-                    board.push_back(b);
-                }
+            }
 
 
            score = new Score();
            scene->addItem(score);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

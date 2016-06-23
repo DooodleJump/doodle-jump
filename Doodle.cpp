@@ -139,6 +139,7 @@ void Doodle::keyReleaseEvent(QKeyEvent *event)
 
 void Doodle::collide()
 {
+    //isCOllide = false;
     QList<QGraphicsItem *> colliding_items = collidingItems();
 
     for (int i = 0, n = colliding_items.size(); i < n; ++i)
@@ -152,7 +153,7 @@ void Doodle::collide()
 
                  timer1->stop();
                  y_0 = game->board[i]->y()-40;
-                 setX(game->board[i]->x());
+                // setX(game->board[i]->x());
                  timer1->start(100);
 
                  t = 0.0;

@@ -22,5 +22,6 @@
         <file>Spider.png</file>
         <file>Toad.png</file>
         <file>UFO1.png</file>
+        <file>jetpackItem.png</file>
     </qresource>
 </RCC>

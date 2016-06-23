@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     Brownboard.cpp \
     Blueboard.cpp \
     Bluemon.cpp \
-    Fly.cpp
+    Fly.cpp \
+    Missile.cpp
 
 HEADERS  += \
     Game.h \
@@ -52,4 +53,4 @@ RESOURCES += \
     res.qrc
 
 OTHER_FILES += \
-    map.txt
+    readme.txt
