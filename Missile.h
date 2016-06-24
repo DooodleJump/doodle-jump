@@ -16,6 +16,6 @@ public:
 public slots:
   // void move();
    //virtual void ability();
-};
+};//
 
 #endif // MISSILE_H

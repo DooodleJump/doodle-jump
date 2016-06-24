@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include "Game.h"
 #include "Board.h"
-
+//
 extern Game * game;
 
 Bullet::Bullet(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent)

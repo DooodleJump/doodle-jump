@@ -47,5 +47,5 @@ private slots:
     void set_pos();
     void fall();
 };
-
+//
 #endif // DOODLE_H

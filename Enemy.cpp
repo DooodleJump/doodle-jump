@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "Game.h"
 #include <QTimer>
-
+//
 extern Game * game;
 
 int flag = 0;

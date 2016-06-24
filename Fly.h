@@ -14,6 +14,6 @@ public:
 public slots:
     void move();
 };
-
+//
 
 #endif // FLY_H

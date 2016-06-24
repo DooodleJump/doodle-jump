@@ -1,6 +1,6 @@
 #include "Brownboard.h"
 
-
+//
 Brownboard::Brownboard(QGraphicsItem *parent)
 {
 

@@ -14,5 +14,5 @@ public slots:
     void move();
 };
 
-
+//
 #endif // SPIDER_H

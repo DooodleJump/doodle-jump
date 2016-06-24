@@ -40,4 +40,4 @@ public:
 //    QPushButton *button2;
 ////    Health * health;
 
-};
+};//

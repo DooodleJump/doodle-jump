@@ -20,6 +20,7 @@ float degrees = 90.0f;
 float radians = qDegreesToRadians(degrees);
 QTimer * timer1;
 QTimer * timer2;
+QTimer * timer3;
 
 
 Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
@@ -214,12 +215,19 @@ void Doodle::collide()
 
         }
 
-        if (game->activeEnemy)
-            if (collidesWithItem(game->enemy1))
+        for (int i = game->enemy.size() - 1; i > 0; --i)
+        {
+            if (collidesWithItem(game->enemy[i]))
             {
-                game->scene->removeItem(game->enemy1);
-                fall();
+                timer1->stop();
+                colliding_items.removeOne(game->enemy[i]);
+                game->scene->removeItem(game->enemy[i]);
+                timer3 = new QTimer(this);
+                connect(timer3, SIGNAL(timeout()), this, SLOT(fall()));
+
+                timer3->start(40);
             }
+        }
 }
 
 void Doodle::set_pos()
@@ -265,7 +273,8 @@ void Doodle::set_pos()
 
 void Doodle::fall()
 {
-    t = tp;
+    setPos(x() - 0.1, y() + 40);
+    //gameover
 }
 
 void Doodle::ComputeY(int t1)
@@ -338,8 +347,14 @@ void Doodle::set_board()
                 move_down(fasele);
                 timer1->start(100);
 
-                if (game->activeEnemy)
-                    game->enemy1->move_down(fasele);
+               // if (game->activeEnemy)
+                    for (int i = 0; i < game->enemy.size(); ++i)
+                    {
+                        game->enemy[i]->setY(game->enemy[i]->y() + fasele);
+                        if (game->enemy[i]->y() > 700)
+                            game->scene->removeItem(game->enemy[i]);
+                    }
+
                 if (y_board_jadid < 10)
                     y_board_ghabli = -1*y_board_jadid;
                 else

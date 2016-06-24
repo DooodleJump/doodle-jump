@@ -18,6 +18,6 @@ class Enemy: public QObject, public QGraphicsPixmapItem
 
     public slots:
         void move();
-};
+};//
 
 #endif // ENEMY_H

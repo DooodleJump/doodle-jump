@@ -13,5 +13,5 @@ class Button : public QPushButton, public QPixmap
 //    void pressed();
 //    bool Pressed;
 
-};
+};//
 #endif // BUTTON_H

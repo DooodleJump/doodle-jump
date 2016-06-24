@@ -15,3 +15,4 @@ public slots:
 };
 
 #endif // BOSSMON_H
+//

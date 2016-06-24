@@ -190,7 +190,7 @@ Game::Game(QWidget *parent)
 
 
 
-
+//////////////////
 
 
 //    qsrand(time(NULL));

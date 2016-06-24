@@ -1,6 +1,6 @@
 #include "BossMon.h"
 
-
+//
 BossMon::BossMon(QGraphicsItem *parent)
 {
 

@@ -15,6 +15,6 @@ public slots:
    void move();
    //virtual void ability();
 };
-
+//
 
 #endif // SPRINGBOARD_H

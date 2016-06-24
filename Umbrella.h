@@ -14,6 +14,6 @@ public:
 public slots:
    void move();
   // virtual void ability();
-};
+};//
 
 #endif // UMBRELLA_H

@@ -1,5 +1,5 @@
 #include "Board.h"
-
+//
 Board::Board(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
 {
     setPixmap(QPixmap(":/images/board.png"));

@@ -13,5 +13,5 @@ public:
 public slots:
     void move();
 };
-
+//
 #endif // BULLET_H

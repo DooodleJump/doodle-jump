@@ -13,6 +13,6 @@ public:
 
 public slots:
     void move();
-};
+};//
 
 #endif // BLUEBOARD_H

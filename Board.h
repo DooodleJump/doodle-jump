@@ -16,6 +16,6 @@ public:
 public slots:
     void move_down(int fasele);
 
-};
+};//
 
 #endif // BOARD_H

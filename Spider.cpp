@@ -8,5 +8,5 @@ Spider::Spider(QGraphicsItem *parent)
 
 void Spider::move()
 {
-
+//
 }

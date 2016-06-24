@@ -17,6 +17,6 @@ public:
 
 public slots:
    void move();
-};
+};//
 
 #endif // SPRING_H

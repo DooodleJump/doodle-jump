@@ -13,6 +13,6 @@ public:
     Bluemon(QGraphicsItem * parent=0);
 public slots:
     void move();
-};
+};//
 
 #endif // BLUEMON_H

@@ -1,6 +1,6 @@
 #include "Bluemon.h"
 
-
+//
 Bluemon::Bluemon(QGraphicsItem *parent)
 {
     setPixmap(QPixmap(":/images/bulemon.png"));
