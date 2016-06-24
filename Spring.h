@@ -12,7 +12,7 @@ public:
    Spring(QGraphicsItem * parent=0);
 public slots:
    void move();
-   virtual void ability();
+   void ability();
 };
 
 #endif // SPRING_H
