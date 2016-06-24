@@ -57,7 +57,7 @@ Game::Game(QWidget *parent)
            int line_count=0;
            QString line[500];
 
-            QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/readme.txt");
+            QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/readme.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";
             if(file.exists()){
@@ -110,7 +110,7 @@ Game::Game(QWidget *parent)
 
                     }
                     else if (b->btype == 3){
-                           springboard = new Springboard();
+                        springboard = new Springboard();
                         springboard->setPos(fx,fy);
                         springboard->setFlag(QGraphicsItem::ItemIsFocusable);
                         board.push_back(springboard);

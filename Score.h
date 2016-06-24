@@ -5,11 +5,16 @@
 
 class Score: public QGraphicsTextItem{
 public:
+    int hightScore;
     Score(QGraphicsItem * parent=0);
     void increase(int s);
     int getScore();
-private:
+    void setHightScore(int);
+    int readScore();
+    void writeScore();
+    int fScore;
     int score;
+
 };
 //
 #endif // SCORE_H

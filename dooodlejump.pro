@@ -59,4 +59,5 @@ RESOURCES += \
     res.qrc
 
 OTHER_FILES += \
-    readme.txt
+    readme.txt \
+    score.txt

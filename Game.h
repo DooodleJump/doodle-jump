@@ -34,12 +34,5 @@ public:
     Missile *missile;
     Springboard * springboard;
     bool activeEnemy;
+};
 
-
-
-////    Board *boardm;
-    Button *bplay;
-//    QPushButton *button2;
-////    Health * health;
-
-};//

@@ -34,6 +34,7 @@ public:
     bool isCOllide;
     bool isMissile;
     bool isSpring;
+    bool isGameOver;
 
     //QMediaPlayer *jump;
 
@@ -42,10 +43,12 @@ private:
 
 private slots:
     void move_down(int fasele);
+    void move_GO();
     void set_board();
     void collide();
     void set_pos();
     void fall();
+    void gameover();
 };
 //
 #endif // DOODLE_H

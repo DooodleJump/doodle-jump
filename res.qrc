@@ -27,5 +27,8 @@
         <file>bat1.png</file>
         <file>bat2.png</file>
         <file>bat3.png</file>
+        <file>play.png</file>
+        <file>Missile.png</file>
+        <file>ty.png</file>
     </qresource>
 </RCC>

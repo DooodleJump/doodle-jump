@@ -15,12 +15,16 @@ extern Game * game;
 float tp;
 float tmushak;
 float tfanar;
+int r = 10;
 QSet<Qt::Key> pressedKeys;
 float degrees = 90.0f;
 float radians = qDegreesToRadians(degrees);
+
 QTimer * timer1;
 QTimer * timer2;
 QTimer * timer3;
+QTimer * timer4;
+
 
 
 Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
@@ -283,6 +287,13 @@ void Doodle::set_pos()
         setPos(470, y() - Y);
     else
         setPos(x() + dx, y() - Y);
+
+    if(y() > 800)
+    {
+        timer1->stop();
+        isGameOver = true;
+        gameover();
+    }
 }
 
 void Doodle::fall()
@@ -387,5 +398,44 @@ void Doodle::set_board()
 void Doodle::move_down(int fasele)
 {
     setY(y() + fasele);
+}
+
+void Doodle::move_GO()
+{
+    setPos(x(), y() + r);
+    r += 10;
+    if(isGameOver){
+        if(y() > 300){
+            timer4->stop();
+            game->score->setPos(100 , 500);
+            game->score->setPlainText(QString("your score: ") + QString::number(game->score->score));
+            game->score->setPlainText(QString("hight score: ") + QString::number(game->score->hightScore));
+        }
+    }
+}
+
+void Doodle::gameover(){
+    isGameOver = true;
+    if (y() > 800){
+        qDebug() << "game over" << endl;
+        for (int i = 0 ; i < game->enemy.size() ; i++)
+        {
+
+
+            game->scene->removeItem(game->enemy[i]);
+        }
+        for ( int j = 0 ; j < game->board.size() ; j++)
+        {
+            game->scene->removeItem(game->board[j]);
+        }
+
+       setX(220);
+       setY(0);
+       setPos(x() , y());
+       timer4 = new QTimer(this);
+       connect(timer4, SIGNAL(timeout()), this, SLOT(move_GO()));
+       //connect(timer4, SIGNAL(timeout()), this, SLOT(move_down(10)));
+       timer4->start(100);
+    }
 }
 
