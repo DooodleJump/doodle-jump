@@ -10,6 +10,7 @@ class BossMon: public Enemy{
     Q_OBJECT
 public:
     BossMon(QGraphicsItem * parent=0);
+    virtual void move_down(int fasele);
 public slots:
     void move();
 };

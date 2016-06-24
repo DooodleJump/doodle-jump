@@ -12,6 +12,7 @@ class Enemy: public QObject, public QGraphicsPixmapItem
 
     public:
         int etype;
+        int flag;
         QTimer* timer;
         Enemy(QGraphicsItem * parent=0);
         void move_down(int fasele);

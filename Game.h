@@ -1,4 +1,4 @@
-#include <QGraphicsView>
+ #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QVector>
 #include "Doodle.h"
@@ -6,6 +6,7 @@
 #include "Score.h"
 #include "Button.h"
 #include "Enemy.h"
+#include "Bluemon.h"
 #include "Fly.h"
 #include "BossMon.h"
 #include "Spider.h"
@@ -29,6 +30,7 @@ public:
     Spring *spring;
     Fly *fly;
     BossMon *bossmon;
+    Bluemon *bluemon;
     Missile *missile;
     Springboard * springboard;
     bool activeEnemy;

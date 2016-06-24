@@ -10,6 +10,7 @@ class Spider: public Enemy{
     Q_OBJECT
 public:
     Spider(QGraphicsItem * parent=0);
+    virtual void move_down(int fasele);
 public slots:
     void move();
 };

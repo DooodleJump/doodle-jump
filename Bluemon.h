@@ -11,6 +11,7 @@ class Bluemon: public Enemy{
     Q_OBJECT
 public:
     Bluemon(QGraphicsItem * parent=0);
+    virtual void move_down(int fasele);
 public slots:
     void move();
 };//

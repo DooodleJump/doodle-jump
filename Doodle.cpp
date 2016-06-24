@@ -217,11 +217,25 @@ void Doodle::collide()
 
         for (int i = game->enemy.size() - 1; i > 0; --i)
         {
-            if (collidesWithItem(game->enemy[i]))
-            {
+                    if (collidesWithItem(game->enemy[i]))
+                    {
+//        for (int i = 0, n = colliding_items.size(); i < n; ++i)
+//        {
+//            if (typeid(*(colliding_items[i])) == typeid(Enemy))
+//            {
+//                //game->score->increase();
+//qDebug() << " enemy c" << endl;
+//                game->scene->removeItem(colliding_items[i]);
+//                //game->scene->removeItem(this);
+
+//                //game->activeEnemy = false;
+//                delete colliding_items[i];
+//                //delete this;
+
                 timer1->stop();
-                colliding_items.removeOne(game->enemy[i]);
-                game->scene->removeItem(game->enemy[i]);
+               // colliding_items.removeOne(game->enemy[i]);
+               // game->scene->removeItem(game->enemy[i]);
+
                 timer3 = new QTimer(this);
                 connect(timer3, SIGNAL(timeout()), this, SLOT(fall()));
 

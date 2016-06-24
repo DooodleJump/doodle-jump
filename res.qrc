@@ -16,7 +16,6 @@
         <file>bossMon.png</file>
         <file>Caterpillar.png</file>
         <file>dontShoot.png</file>
-        <file>Fly1.png</file>
         <file>Hole.png</file>
         <file>Redball.png</file>
         <file>Spider.png</file>
@@ -25,5 +24,8 @@
         <file>jetpackItem.png</file>
         <file>p-green-s0.png</file>
         <file>p-green-s1.png</file>
+        <file>bat1.png</file>
+        <file>bat2.png</file>
+        <file>bat3.png</file>
     </qresource>
 </RCC>

@@ -11,6 +11,7 @@ class Fly: public Enemy{
     Q_OBJECT
 public:
     Fly(QGraphicsItem * parent=0);
+    virtual void move_down(int fasele);
 public slots:
     void move();
 };

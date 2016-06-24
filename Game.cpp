@@ -37,35 +37,11 @@ Game::Game(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(sceneWight,sceneHeight);
 
-//    bplay = new Button();
-//    bplay->setGeometry(200, 300, 40, 70);
-//    doodle->setFlag(QGraphicsItem::ItemIsFocusable);
-//    scene->addWidget(bplay);
-
-//    while(!bplay->Pressed)
-//    {
-//        doodle = new Doodle();
-//        doodle->setPos(90,650);
-//        doodle->setFlag(QGraphicsItem::ItemIsFocusable);
-//        doodle->setFocus();
-//        scene->addItem(doodle);
-
-//        Board *b = new Board();
-//        b->setPos(90, 645);
-//        scene->addItem(b);
-//    }
-
     doodle = new Doodle();
     doodle->setPos(240,650);
     doodle->setFlag(QGraphicsItem::ItemIsFocusable);
     doodle->setFocus();
     scene->addItem(doodle);
-
-    enemy1 = new Enemy();
-    enemy1->setPos(20, 100);
-    enemy1->setFlag(QGraphicsItem::ItemIsFocusable);
-    scene->addItem(enemy1);
-    activeEnemy = true;
 
     Board *b = new Board();
     b->setPos(243, 645);
@@ -81,8 +57,7 @@ Game::Game(QWidget *parent)
            int line_count=0;
            QString line[500];
 
-            QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/readme.txt");
-            //QFile("readme.txt");
+            QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/readme.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";
             if(file.exists()){
@@ -102,7 +77,7 @@ Game::Game(QWidget *parent)
                 if (type == 0){
                     b->btype = name.split(" ")[1].toInt();
                     fx =  name.split(" ")[2].toInt();
-                    fy = name.split(" ")[2].toInt();
+                    fy = name.split(" ")[3].toInt();
 
                     if (b->btype == 0)
                     {
@@ -122,6 +97,7 @@ Game::Game(QWidget *parent)
                         spring = new Spring();
                         spring->setPos(fx,fy);
                         spring->setFlag(QGraphicsItem::ItemIsFocusable);
+                        board.push_back(spring);
                         scene->addItem(spring);
                     }
                     else if(b->btype == 2)
@@ -129,39 +105,52 @@ Game::Game(QWidget *parent)
                         missile = new Missile();
                         missile->setPos(fx,fy);
                         missile->setFlag(QGraphicsItem::ItemIsFocusable);
+                        board.push_back(missile);
                         scene->addItem(missile);
 
                     }
                     else if (b->btype == 3){
-                        springboard = new Springboard();
+                           springboard = new Springboard();
                         springboard->setPos(fx,fy);
                         springboard->setFlag(QGraphicsItem::ItemIsFocusable);
+                        board.push_back(springboard);
                         scene->addItem(springboard);
                     }
 
                 }
-                else if (type == 1){
+                else if (type == 1)
+                {
                     e->etype = name.split(" ")[1].toInt();
                     fx =  name.split(" ")[2].toInt();
-                    fy = name.split(" ")[2].toInt();
+                    fy = name.split(" ")[3].toInt();
 
                     if (e->etype == 1){
                         fly = new Fly();
                         fly->setPos(fx,fy);
                         fly->setFlag(QGraphicsItem::ItemIsFocusable);
+                        enemy.push_back(fly);
                         scene->addItem(fly);
                     }
                     else if (e->etype == 2){
                         bossmon = new BossMon();
                         bossmon->setPos(fx,fy);
                         bossmon->setFlag(QGraphicsItem::ItemIsFocusable);
+                        enemy.push_back(bossmon);
                         scene->addItem(bossmon);
                     }
                     else if (e->etype == 3){
                         spider = new Spider();
                         spider->setPos(fx,fy);
                         spider->setFlag(QGraphicsItem::ItemIsFocusable);
+                        enemy.push_back(spider);
                         scene->addItem(spider);
+                    }
+                    else if (e->etype == 4){
+                        bluemon = new Bluemon();
+                        bluemon->setPos(fx,fy);
+                        bluemon->setFlag(QGraphicsItem::ItemIsFocusable);
+                        enemy.push_back(bluemon);
+                        scene->addItem(bluemon);
                     }
                 }
 

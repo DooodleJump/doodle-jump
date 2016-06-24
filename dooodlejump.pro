@@ -47,12 +47,12 @@ HEADERS  += \
     Spring.h \
     Springboard.h \
     Brownboard.h \
-    Blueboard.h \
     Bluemon.h \
     Fly.h \
     Button.h \
     Spider.h \
-    BossMon.h
+    BossMon.h \
+    Blueboard.h
 
 RESOURCES += \
     res.qrc \
