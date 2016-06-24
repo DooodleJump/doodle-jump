@@ -12,8 +12,8 @@
 
 extern Game * game;
 
-int tp;
-int tmushak;
+float tp;
+float tmushak;
 float tfanar;
 QSet<Qt::Key> pressedKeys;
 float degrees = 90.0f;
@@ -43,6 +43,7 @@ Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 
     y_board_ghabli = 645;
     isSpring = false;
+    isMissile = false;
 
     //***************************************************************
 
@@ -151,26 +152,45 @@ void Doodle::collide()
             {
                  isCOllide = true;
 
-                 if (game->board[i]->type == 1)
+                 if (game->board[i]->btype == 1)
                  {
                      game->board[i]->setPixmap(QPixmap(":/images/p-green-s1.png"));
-                     qDebug ()<< "fanarcoli"<< endl;
+                     //Debug ()<< "Spring"<< endl;
                      isSpring = true;
-
                      timer1->stop();
                      t = 0.0;
                      tfanar = 0.0;
                      v_0 = 80.0;
-                     g = 14;
+                     g = 12;
                      degrees = 90.0f;
                      radians = qDegreesToRadians(degrees);
                      setY(game->board[i]->y() - 55);
                      timer1->start(100);
-
                      set_board();
                      colliding_items.removeOne(game->board[i]);
                      break;
                  }
+
+                 else if (game->board[i]->btype == 2)
+                 {
+                     //game->board[i]->setPixmap(QPixmap(":/images/p-green-s1.png"));
+                     //qDebug ()<< "fanarcoli"<< endl;
+                     setPixmap(QPixmap(":/images/Toad.png"));
+                     isMissile = true;
+                     timer1->stop();
+                     t = 0.0;
+                     tmushak = 0.0;
+                     v_0 = 80.0;
+                     g = 10;
+                     degrees = 90.0f;
+                     radians = qDegreesToRadians(degrees);
+                     setY(game->board[i]->y() - 55);
+                     timer1->start(100);
+                     set_board();
+                     colliding_items.removeOne(game->board[i]);
+                     break;
+                 }
+
                  else
                  {
                      y_board_jadid = game->board[i]->y();
@@ -204,14 +224,17 @@ void Doodle::collide()
 
 void Doodle::set_pos()
 {
-   // qDebug() << "setpos " << endl;
-   // ++t;
-    if (!isSpring)
+    if (!isSpring && !isMissile)
     {
      //   qDebug()<<"no spring"<<endl;
         ++t;
         collide();
         ComputeY(t);
+    }
+    else if (isMissile)
+    {
+        ++tmushak;
+        ComputeY(tmushak);
     }
     else if (isSpring)
     {
@@ -224,7 +247,6 @@ void Doodle::set_pos()
     {
         t = tp;
     }
-
 
     if ( t == -1)
     {
@@ -256,6 +278,17 @@ void Doodle::ComputeY(int t1)
             v_0 = 40.0;
             isSpring = false;
             tfanar = 0;
+            g = 10;
+        }
+    }
+    else if (isMissile)
+    {
+        if (tmushak > 6)
+        {
+            v_0 = 40.0;
+            isMissile = false;
+            tmushak = 0;
+            g = 10;
         }
     }
 
@@ -278,15 +311,18 @@ void Doodle::ComputeY(int t1)
     else
         Y = -1*(yoj - dy);
 
-    if (!isSpring)
+    if (!isSpring && !isMissile)
         tp = t1;
     if (t1 <= 2*Max_t+1 && t1 > 2*Max_t-1)
     {
        t1 = -1;
     }
-    if (!isSpring)
+    if (!isSpring && !isMissile)
         t = t1;
-    else tfanar = t1;
+    else if (isSpring)
+        tfanar = t1;
+    else if (isMissile)
+        tmushak = t1;
 }
 
 void Doodle::set_board()
