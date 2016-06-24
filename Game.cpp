@@ -18,6 +18,11 @@
 #include <fstream>
 #include <cstdio>
 #include <QTextStream>
+#include "Springboard.h"
+#include "Spider.h"
+#include "BossMon.h"
+#include "Fly.h"
+
 #define sceneHeight 800
 #define sceneWight 470
 
@@ -56,25 +61,27 @@ Game::Game(QWidget *parent)
     doodle->setFocus();
     scene->addItem(doodle);
 
-    enemy = new Enemy();
-    enemy->setPos(20, 100);
-    enemy->setFlag(QGraphicsItem::ItemIsFocusable);
-    scene->addItem(enemy);
+    enemy1 = new Enemy();
+    enemy1->setPos(20, 100);
+    enemy1->setFlag(QGraphicsItem::ItemIsFocusable);
+    scene->addItem(enemy1);
     activeEnemy = true;
 
     Board *b = new Board();
     b->setPos(243, 645);
-    b->setFlag(QGraphicsItem::ItemIsFocusable);
     board.push_back(b);
     scene->addItem(b);
     board.push_back(b);
 
-           QString name;
-           int fx,fy,type;
-           int line_count=0;
-           QString line[100];
+    Enemy *e = new Enemy();
 
-            QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/readme.txt");
+           QString name;
+           int fx,fy;
+           char type;
+           int line_count=0;
+           QString line[500];
+
+            QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/readme.txt");
             //QFile("readme.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";
@@ -89,42 +96,75 @@ Game::Game(QWidget *parent)
                 line_count++;
             }
             qDebug() << "line_count     " << line_count << endl;
-            for (int k =0 ; k < line_count ; k++)
-            {
-
+            for (int k =0 ; k < line_count ; k++){
                 name = line[k];
-                b->type = name.split(" ")[0].toInt();
-                fx =  name.split(" ")[1].toInt();
-                fy = name.split(" ")[2].toInt();
-                if (b->type == 0)
-                {
-                    Board *b = new Board();
-                    b->setX (fx);
-                    b->setY(fy);
-                    qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
-                    b->setPos(b->x(),b->y());
-                    b->setFlag(QGraphicsItem::ItemIsFocusable);
-                    scene->addItem(b);
-                    board.push_back(b);
+                type = name.split(" ")[0].toInt();
+                if (type == 0){
+                    b->btype = name.split(" ")[1].toInt();
+                    fx =  name.split(" ")[2].toInt();
+                    fy = name.split(" ")[2].toInt();
+
+                    if (b->btype == 0)
+                    {
+                        Board *b = new Board();
+                        b->setX (fx);
+                        b->setY(fy);
+                        qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
+
+                        b->setPos(b->x(),b->y());
+                        b->setFlag(QGraphicsItem::ItemIsFocusable);
+                        scene->addItem(b);
+                        board.push_back(b);
+                    }
+                    if (b->btype == 1)
+                    {
+                        qDebug() << "fanar";
+                        spring = new Spring();
+                        spring->setPos(fx,fy);
+                        spring->setFlag(QGraphicsItem::ItemIsFocusable);
+                        scene->addItem(spring);
+                    }
+                    else if(b->btype == 2)
+                    {
+                        missile = new Missile();
+                        missile->setPos(fx,fy);
+                        missile->setFlag(QGraphicsItem::ItemIsFocusable);
+                        scene->addItem(missile);
+
+                    }
+                    else if (b->btype == 3){
+                        springboard = new Springboard();
+                        springboard->setPos(fx,fy);
+                        springboard->setFlag(QGraphicsItem::ItemIsFocusable);
+                        scene->addItem(springboard);
+                    }
+
+                }
+                else if (type == 1){
+                    e->etype = name.split(" ")[1].toInt();
+                    fx =  name.split(" ")[2].toInt();
+                    fy = name.split(" ")[2].toInt();
+
+                    if (e->etype == 1){
+                        fly = new Fly();
+                        fly->setPos(fx,fy);
+                        fly->setFlag(QGraphicsItem::ItemIsFocusable);
+                        scene->addItem(fly);
+                    }
+                    else if (e->etype == 2){
+                        bossmon = new BossMon();
+                        bossmon->setPos(fx,fy);
+                        bossmon->setFlag(QGraphicsItem::ItemIsFocusable);
+                        scene->addItem(bossmon);
+                    }
+                    else if (e->etype == 3){
+                        spider = new Spider();
+                        spider->setPos(fx,fy);
+                        spider->setFlag(QGraphicsItem::ItemIsFocusable);
+                        scene->addItem(spider);
+                    }
                 }
 
-                if (b->type == 1)
-                {
-                    qDebug() << "fanar";
-                    spring = new Spring();
-                    spring->setPos(fx,fy +10);
-                    spring->setFlag(QGraphicsItem::ItemIsFocusable);
-                    board.push_back(spring);
-                    scene->addItem(spring);
-                }
-                else if(b->type == 2)
-                {
-                    missile = new Missile();
-                    missile->setPos(fx,fy +10);
-                    missile->setFlag(QGraphicsItem::ItemIsFocusable);
-                    scene->addItem(missile);
-
-                }
             }
 
 
