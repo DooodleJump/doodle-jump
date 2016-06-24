@@ -23,5 +23,6 @@
         <file>Toad.png</file>
         <file>UFO1.png</file>
         <file>jetpackItem.png</file>
+        <file>p-green-s0.png</file>
     </qresource>
 </RCC>

@@ -13,7 +13,7 @@
 #include <QFile>
 #include <iostream>
 #include "Score.h"
-//#include "Missile.h"
+#include "Missile.h"
 #include "Spring.h"
 #include <fstream>
 #include <cstdio>
@@ -95,7 +95,7 @@ Game::Game(QWidget *parent)
             qDebug() << "line_count     " << line_count << endl;
             for (int k =0 ; k < line_count ; k++){
                 name = line[k];
-                type = name.split(" ")[0].toInt();
+                b->type = name.split(" ")[0].toInt();
                 fx =  name.split(" ")[1].toInt();
                 fy = name.split(" ")[2].toInt();
                 Board *b = new Board();
@@ -117,6 +117,10 @@ Game::Game(QWidget *parent)
                 }
                 else if(type == 2)
                 {
+                    missile = new Missile();
+                    missile->setPos(fx,fy +10);
+                    missile->setFlag(QGraphicsItem::ItemIsFocusable);
+                    scene->addItem(missile);
 
                 }
             }

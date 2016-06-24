@@ -9,6 +9,7 @@
 #include "Spring.h"
 #include <QPushButton>
 //#include <QMediaPlayer>
+#include "Missile.h"
 
 class Game: public QGraphicsView{
 public:
@@ -20,6 +21,7 @@ public:
     Enemy *enemy;
     Score *score;
     Spring *spring;
+    Missile *missile;
     bool activeEnemy;
 
 
