@@ -215,9 +215,9 @@ void Doodle::collide()
         }
 
         if (game->activeEnemy)
-            if (collidesWithItem(game->enemy))
+            if (collidesWithItem(game->enemy1))
             {
-                game->scene->removeItem(game->enemy);
+                game->scene->removeItem(game->enemy1);
                 fall();
             }
 }
@@ -339,7 +339,7 @@ void Doodle::set_board()
                 timer1->start(100);
 
                 if (game->activeEnemy)
-                    game->enemy->move_down(fasele);
+                    game->enemy1->move_down(fasele);
                 if (y_board_jadid < 10)
                     y_board_ghabli = -1*y_board_jadid;
                 else

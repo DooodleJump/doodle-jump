@@ -5,14 +5,15 @@
 #include <QGraphicsItem>
 #include <QObject>
 #include "Award.h"
+#include "Board.h"
 
-class Springboard: public Award{
+class Springboard: public Board{
     Q_OBJECT
 public:
    Springboard(QGraphicsItem * parent=0);
 public slots:
    void move();
-   virtual void ability();
+   //virtual void ability();
 };
 
 

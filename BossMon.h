@@ -1,7 +1,6 @@
 #ifndef BOSSMON_H
 #define BOSSMON_H
 
-
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QGraphicsItem>

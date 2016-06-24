@@ -5,7 +5,7 @@
 Spring::Spring(QGraphicsItem *parent)
 {
      setPixmap(QPixmap(":/images/p-green-s0.png"));
-     type = 1;
+     btype = 1;
 }
 
 void Spring::move()

@@ -10,8 +10,3 @@ void Springboard::move()
 {
 
 }
-
-void Springboard::ability()
-{
-
-}

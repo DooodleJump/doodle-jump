@@ -81,7 +81,7 @@ Game::Game(QWidget *parent)
            int line_count=0;
            QString line[500];
 
-            QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/readme.txt");
+            QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/readme.txt");
             //QFile("readme.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";

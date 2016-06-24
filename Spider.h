@@ -1,7 +1,6 @@
 #ifndef SPIDER_H
 #define SPIDER_H
 
-
 #include <QGraphicsPixmapItem>
 #include <QObject>
 #include <QGraphicsItem>

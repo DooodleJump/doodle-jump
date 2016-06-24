@@ -10,7 +10,7 @@
 class Board : public QObject,public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    int type;
+    int btype;
     Board(QGraphicsItem * parent=0);
 
 public slots:

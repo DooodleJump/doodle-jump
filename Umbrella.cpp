@@ -11,7 +11,4 @@ void Umbrella::move()
 
 }
 
-void Umbrella::ability()
-{
 
-}

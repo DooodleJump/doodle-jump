@@ -30,7 +30,9 @@ SOURCES += main.cpp \
     Bluemon.cpp \
     Fly.cpp \
     Missile.cpp \
-    Button.cpp
+    Button.cpp \
+    Spider.cpp \
+    BossMon.cpp
 
 HEADERS  += \
     Game.h \
@@ -48,7 +50,9 @@ HEADERS  += \
     Blueboard.h \
     Bluemon.h \
     Fly.h \
-    Button.h
+    Button.h \
+    Spider.h \
+    BossMon.h
 
 RESOURCES += \
     res.qrc \
