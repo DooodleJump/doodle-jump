@@ -12,7 +12,7 @@ Missile::Missile(QGraphicsItem *parent)
 
 //}
 
-void Missile::ability()
-{
+//void Missile::ability()
+//{
 
-}
+//}

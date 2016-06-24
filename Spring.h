@@ -4,15 +4,19 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
 #include <QObject>
-#include "Award.h"
+#include "Board.h"
 
-class Spring: public Award{
+class Spring: public Board
+{
     Q_OBJECT
+
 public:
+   float v_0;
+   float g;
    Spring(QGraphicsItem * parent=0);
+
 public slots:
    void move();
-   void ability();
 };
 
 #endif // SPRING_H

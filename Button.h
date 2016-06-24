@@ -8,10 +8,10 @@
 
 class Button : public QPushButton, public QPixmap
 {
-public:
-    Button(QWidget * parent=0);
-    void pressed();
-    bool Pressed;
+//public:
+//    Button(QWidget * parent=0);
+//    void pressed();
+//    bool Pressed;
 
 };
 #endif // BUTTON_H

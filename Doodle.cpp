@@ -13,6 +13,8 @@
 extern Game * game;
 
 int tp;
+int tmushak;
+float tfanar;
 QSet<Qt::Key> pressedKeys;
 float degrees = 90.0f;
 float radians = qDegreesToRadians(degrees);
@@ -40,6 +42,7 @@ Doodle::Doodle(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
     t = 0.0;
 
     y_board_ghabli = 645;
+    isSpring = false;
 
     //***************************************************************
 
@@ -147,17 +150,42 @@ void Doodle::collide()
             if (collidesWithItem(game->board[i]))
             {
                  isCOllide = true;
-                 y_board_jadid = game->board[i]->y();
-                 timer1->stop();
-                 t = 0.0;
-                 degrees = 90.0f;
-                 radians = qDegreesToRadians(degrees);
-                 setY(game->board[i]->y() - 55);
-                 timer1->start(100);
 
-                 set_board();
-                 colliding_items.removeOne(game->board[i]);
-                 break;
+                 if (game->board[i]->type == 1)
+                 {
+                     game->board[i]->setPixmap(QPixmap(":/images/p-green-s1.png"));
+                     qDebug ()<< "fanarcoli"<< endl;
+                     isSpring = true;
+
+                     timer1->stop();
+                     t = 0.0;
+                     tfanar = 0.0;
+                     v_0 = 80.0;
+                     g = 14;
+                     degrees = 90.0f;
+                     radians = qDegreesToRadians(degrees);
+                     setY(game->board[i]->y() - 55);
+                     timer1->start(100);
+
+                     set_board();
+                     colliding_items.removeOne(game->board[i]);
+                     break;
+                 }
+                 else
+                 {
+                     y_board_jadid = game->board[i]->y();
+                     timer1->stop();
+                      t = 0.0;
+                      g = 10;
+                      degrees = 90.0f;
+                      radians = qDegreesToRadians(degrees);
+                      setY(game->board[i]->y() - 55);
+                      timer1->start(100);
+
+                      set_board();
+                      colliding_items.removeOne(game->board[i]);
+                      break;
+                 }
             }
             else
             {
@@ -176,9 +204,21 @@ void Doodle::collide()
 
 void Doodle::set_pos()
 {
-    ++t;
-    collide();
-    ComputeY();
+   // qDebug() << "setpos " << endl;
+   // ++t;
+    if (!isSpring)
+    {
+     //   qDebug()<<"no spring"<<endl;
+        ++t;
+        collide();
+        ComputeY(t);
+    }
+    else if (isSpring)
+    {
+    //    qDebug()<<"spring"<<endl;
+        ++tfanar;
+        ComputeY(tfanar);
+    }
 
     if (!isCOllide)
     {
@@ -193,48 +233,65 @@ void Doodle::set_pos()
         radians = qDegreesToRadians(degrees);
     }
 
-
     if (x() + dx > 450)
         setPos(10, y() - Y);
+    if (x() + dx < 0)
+        setPos(470, y() - Y);
     else
         setPos(x() + dx, y() - Y);
 }
 
 void Doodle::fall()
 {
-    timer1->stop();
     t = tp;
-    //qDebug() << "fall" << endl;
 }
 
-void Doodle::ComputeY()
+void Doodle::ComputeY(int t1)
 {
+    if (isSpring)
+    {
+    //    qDebug ()<< "fanar"<< endl;
+        if (tfanar > 6)
+        {
+            v_0 = 40.0;
+            isSpring = false;
+            tfanar = 0;
+        }
+    }
+
     int flag = 0;
     float Max_t = v_0*qSin(radians)/g;
     float yoj = (v_0 * qSin(radians) * v_0 * qSin(radians)) / (2 * g);
 
-    v_1 = (-1*g*t) + v_0*qSin(radians);
+   // qDebug() << "maxt " << Max_t << endl << "t1" << t1<< endl;
 
-    if (t > 3)
+    v_1 = (-1*g*t1) + v_0*qSin(radians);
+
+    if (t1 > Max_t-1)
         flag = 1;
 
     dy = ( (v_1*v_1) - (v_0*qSin(radians)*v_0*qSin(radians)) ) / (-2*g);
-    dx = v_0*qCos(radians)*t;
+    dx = v_0*qCos(radians)*t1;
 
     if (!flag)
         Y = yoj - dy;
     else
         Y = -1*(yoj - dy);
 
-    tp = t;
-    if (t <= 2*Max_t+1 && t > 2*Max_t-1)
+    if (!isSpring)
+        tp = t1;
+    if (t1 <= 2*Max_t+1 && t1 > 2*Max_t-1)
     {
-       t = -1;
+       t1 = -1;
     }
+    if (!isSpring)
+        t = t1;
+    else tfanar = t1;
 }
 
 void Doodle::set_board()
 {
+    //qDebug() << "setboard "<< endl;
     if (y() < 350)
     {
             int fasele = y_board_ghabli - y_board_jadid;

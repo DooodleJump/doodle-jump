@@ -32,11 +32,13 @@ public:
     float y_board_ghabli;
     float y_board_jadid;
     bool isCOllide;
+    bool isMissile;
+    bool isSpring;
 
     //QMediaPlayer *jump;
 
 private:
-    void ComputeY();
+    void ComputeY(int t1);
 
 private slots:
     void move_down(int fasele);

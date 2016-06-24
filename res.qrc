@@ -24,5 +24,6 @@
         <file>UFO1.png</file>
         <file>jetpackItem.png</file>
         <file>p-green-s0.png</file>
+        <file>p-green-s1.png</file>
     </qresource>
 </RCC>

@@ -5,14 +5,17 @@
 #include <QGraphicsItem>
 #include <QObject>
 #include "Award.h"
+#include "Board.h"
 
-class Missile:public Award{
+class Missile: public Board //, public Award
+{
     Q_OBJECT
+
 public:
    Missile(QGraphicsItem * parent=0);
 public slots:
-   //void move();
-   virtual void ability();
+  // void move();
+   //virtual void ability();
 };
 
 #endif // MISSILE_H

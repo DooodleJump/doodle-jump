@@ -64,21 +64,17 @@ Game::Game(QWidget *parent)
 
     Board *b = new Board();
     b->setPos(243, 645);
+    b->setFlag(QGraphicsItem::ItemIsFocusable);
+    board.push_back(b);
     scene->addItem(b);
     board.push_back(b);
-
-           b->setPos(b->x(), b->y());
-           b->setFlag(QGraphicsItem::ItemIsFocusable);
-
-           scene->addItem(b);
-           board.push_back(b);
 
            QString name;
            int fx,fy,type;
            int line_count=0;
            QString line[100];
 
-            QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/readme.txt");
+            QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/readme.txt");
             //QFile("readme.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";
@@ -93,29 +89,35 @@ Game::Game(QWidget *parent)
                 line_count++;
             }
             qDebug() << "line_count     " << line_count << endl;
-            for (int k =0 ; k < line_count ; k++){
+            for (int k =0 ; k < line_count ; k++)
+            {
+
                 name = line[k];
                 b->type = name.split(" ")[0].toInt();
                 fx =  name.split(" ")[1].toInt();
                 fy = name.split(" ")[2].toInt();
-                Board *b = new Board();
-                b->setX (fx);
-                b->setY(fy);
-                qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
-                b->setPos(b->x(),b->y());
-                b->setFlag(QGraphicsItem::ItemIsFocusable);
-                scene->addItem(b);
-                board.push_back(b);
+                if (b->type == 0)
+                {
+                    Board *b = new Board();
+                    b->setX (fx);
+                    b->setY(fy);
+                    qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
+                    b->setPos(b->x(),b->y());
+                    b->setFlag(QGraphicsItem::ItemIsFocusable);
+                    scene->addItem(b);
+                    board.push_back(b);
+                }
 
-                if (type == 1)
+                if (b->type == 1)
                 {
                     qDebug() << "fanar";
                     spring = new Spring();
                     spring->setPos(fx,fy +10);
                     spring->setFlag(QGraphicsItem::ItemIsFocusable);
+                    board.push_back(spring);
                     scene->addItem(spring);
                 }
-                else if(type == 2)
+                else if(b->type == 2)
                 {
                     missile = new Missile();
                     missile->setPos(fx,fy +10);
