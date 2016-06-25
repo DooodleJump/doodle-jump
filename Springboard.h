@@ -11,6 +11,8 @@ class Springboard: public Board{
     Q_OBJECT
 public:
    Springboard(QGraphicsItem * parent=0);
+   virtual void setpixmap();
+
 public slots:
    void move();
    //virtual void ability();

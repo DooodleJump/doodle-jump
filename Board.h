@@ -11,7 +11,9 @@ class Board : public QObject,public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     int btype;
+    QTimer * timer;
     Board(QGraphicsItem * parent=0);
+     virtual void setpixmap();
 
 public slots:
     void move_down(int fasele);

@@ -45,6 +45,7 @@ Game::Game(QWidget *parent)
 
     Board *b = new Board();
     b->setPos(243, 645);
+    b->btype = 0;
     board.push_back(b);
     scene->addItem(b);
     board.push_back(b);
@@ -57,7 +58,7 @@ Game::Game(QWidget *parent)
            int line_count=0;
            QString line[500];
 
-            QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/readme.txt");
+            QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/readme.txt");
             if (!file.open(QIODevice::ReadOnly))
                    qDebug() << "fail";
             if(file.exists()){
@@ -85,16 +86,17 @@ Game::Game(QWidget *parent)
                         b->setX (fx);
                         b->setY(fy);
                         qDebug() << "fx  " << fx << "    " <<"fy  " << fy << endl;
-
+                        b->btype = 0;
                         b->setPos(b->x(),b->y());
                         b->setFlag(QGraphicsItem::ItemIsFocusable);
                         scene->addItem(b);
                         board.push_back(b);
                     }
-                    if (b->btype == 1)
+                    else if (b->btype == 1)
                     {
                         qDebug() << "fanar";
                         spring = new Spring();
+                       // spring->btype = 1;
                         spring->setPos(fx,fy);
                         spring->setFlag(QGraphicsItem::ItemIsFocusable);
                         board.push_back(spring);
@@ -103,18 +105,30 @@ Game::Game(QWidget *parent)
                     else if(b->btype == 2)
                     {
                         missile = new Missile();
+                       // missile->btype = 2;
                         missile->setPos(fx,fy);
                         missile->setFlag(QGraphicsItem::ItemIsFocusable);
                         board.push_back(missile);
                         scene->addItem(missile);
 
                     }
-                    else if (b->btype == 3){
+                    else if (b->btype == 3)
+                    {
                         springboard = new Springboard();
+                       // springboard->btype = 3;
                         springboard->setPos(fx,fy);
                         springboard->setFlag(QGraphicsItem::ItemIsFocusable);
                         board.push_back(springboard);
                         scene->addItem(springboard);
+                    }
+                    else if (b->btype == 4)
+                    {
+                        brownboard = new Brownboard();
+                       // brownboard->btype = 4;
+                        brownboard->setPos(fx,fy);
+                        brownboard->setFlag(QGraphicsItem::ItemIsFocusable);
+                        board.push_back(brownboard);
+                        scene->addItem(brownboard);
                     }
 
                 }
@@ -152,9 +166,15 @@ Game::Game(QWidget *parent)
                         enemy.push_back(bluemon);
                         scene->addItem(bluemon);
                     }
+
+
                 }
 
             }
+            safineh = new Safineh();
+            safineh->setPos(0,-500);
+            safineh->setFlag(QGraphicsItem::ItemIsFocusable);
+            scene->addItem(safineh);
 
 
            score = new Score();

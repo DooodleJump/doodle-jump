@@ -11,6 +11,8 @@ class Umbrella: public Board{
     Q_OBJECT
 public:
    Umbrella(QGraphicsItem * parent=0);
+   virtual void setpixmap();
+
 public slots:
    void move();
   // virtual void ability();

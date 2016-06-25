@@ -5,6 +5,10 @@
 #include <QTimerEvent>
 #include <QtEvents>
 #include "Enemy.h"
+#include "Spider.h"
+#include "Fly.h"
+#include "BossMon.h"
+#include "Bluemon.h"
 #include "Game.h"
 #include "Board.h"
 //
@@ -27,15 +31,15 @@ void Bullet::move()
 
     for (int i = 0, n = colliding_items.size(); i < n; ++i)
     {
-        if (typeid(*(colliding_items[i])) == typeid(Enemy))
+        if (typeid(*(colliding_items[i])) == typeid(Spider) || typeid(*(colliding_items[i])) == typeid(BossMon) ||
+                typeid(*(colliding_items[i])) == typeid(Fly) || typeid(*(colliding_items[i])) == typeid(Bluemon))
         {
             //game->score->increase();
 
             game->scene->removeItem(colliding_items[i]);
             game->scene->removeItem(this);
 
-            game->activeEnemy = false;
-            delete colliding_items[i];
+            //delete colliding_items[i];
             delete this;
 
             return;

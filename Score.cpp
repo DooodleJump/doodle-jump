@@ -27,29 +27,32 @@ int Score::getScore()
     return score;
 }
 
-void Score::setHightScore(int hScore){
-    hightScore = hScore;
+int Score::setHightScore(){
+//    int hscore;
+//    hscore = readScore();
+//    hightScore = hScore;
+    hightScore = readScore();
+    return hightScore;
 }
-
-//
 int Score::readScore(){
     QString numScore;
-    QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/score.txt");
+    QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/score.txt");
 
-    if (file.open(QIODevice::ReadOnly))
-         //  qDebug() << "fail";
-    QTextStream in(&file);
-    numScore = file.readLine(); //in.readLine();
+    if (!file.open(QIODevice::ReadOnly))
+           qDebug() << "fail";
+    QTextStream on(&file);
+    //if (!on.atEnd())
+    numScore = on.readLine(); //in.readLine();
     fScore = numScore.split(" ")[0].toInt();
-    setHightScore(fScore);
-    qDebug() << fScore;
+    //setHightScore();
+    qDebug() << "fScore" << fScore << endl;
     return fScore;
 
 }
 
 void Score::writeScore(){
    // QString numScore;
-    QFile file("C:/Users/ahmad/Documents/GitHub/doodle-jump/score.txt");
+    QFile file("C:/Users/pc/Documents/GitHub/doodle-jump/score.txt");
 
     if (file.open(QIODevice::WriteOnly ))
            qDebug() << "fail";
@@ -58,3 +61,4 @@ void Score::writeScore(){
         out << score ;
 
 }
+

@@ -10,6 +10,7 @@ class Blueboard : public QObject,public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     Blueboard(QGraphicsItem * parent=0);
+    //virtual void setpixmap();
 
 public slots:
     void move();

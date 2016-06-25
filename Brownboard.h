@@ -5,14 +5,16 @@
 #include <QGraphicsItem>
 #include <QObject>
 #include <QTimer>
+#include "Board.h"
 
-class Brownboard : public QObject,public QGraphicsPixmapItem {
+class Brownboard : public Board{//public QObject,public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     Brownboard(QGraphicsItem * parent=0);
+    virtual void setpixmap();
 
 public slots:
-    void move();
+    void set();
 };
 
 //

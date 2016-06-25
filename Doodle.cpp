@@ -156,6 +156,7 @@ void Doodle::collide()
             if (collidesWithItem(game->board[i]))
             {
                  isCOllide = true;
+                 qDebug() << "salam " << game->board[i]->btype<< endl;
 
                  if (game->board[i]->btype == 1)
                  {
@@ -166,20 +167,19 @@ void Doodle::collide()
                      t = 0.0;
                      tfanar = 0.0;
                      v_0 = 80.0;
-                     g = 12;
+                     g = 10;
                      degrees = 90.0f;
                      radians = qDegreesToRadians(degrees);
                      setY(game->board[i]->y() - 55);
-                     timer1->start(100);
                      set_board();
+                     timer1->start(100);
+//                     set_board();
                      colliding_items.removeOne(game->board[i]);
                      break;
                  }
 
                  else if (game->board[i]->btype == 2)
                  {
-                     //game->board[i]->setPixmap(QPixmap(":/images/p-green-s1.png"));
-                     //qDebug ()<< "fanarcoli"<< endl;
                      setPixmap(QPixmap(":/images/Toad.png"));
                      isMissile = true;
                      timer1->stop();
@@ -192,6 +192,25 @@ void Doodle::collide()
                      setY(game->board[i]->y() - 55);
                      timer1->start(100);
                      set_board();
+                     colliding_items.removeOne(game->board[i]);
+                     break;
+                 }
+
+                 else if (typeid(game->board[i]) == typeid(Brownboard))
+                 {
+
+                     isBrownboard = true;
+                     setPixmap(QPixmap(":/images/p-brown-1.png.png"));
+                     timer1->stop();
+                     game->board[i]->setpixmap();
+                    // game->brownboard->setpixmap();
+                     v_0 = 40.0;
+                     g = 10;
+                     t = v_0/g;
+                     degrees = 90.0f;
+                     radians = qDegreesToRadians(degrees);
+                     setY(game->board[i]->y() - 55);
+                     timer1->start(100);
                      colliding_items.removeOne(game->board[i]);
                      break;
                  }
@@ -219,32 +238,35 @@ void Doodle::collide()
 
         }
 
-        for (int i = game->enemy.size() - 1; i > 0; --i)
+        for (int i = 0, n = colliding_items.size(); i < n; ++i)
         {
-                    if (collidesWithItem(game->enemy[i]))
-                    {
-//        for (int i = 0, n = colliding_items.size(); i < n; ++i)
-//        {
-//            if (typeid(*(colliding_items[i])) == typeid(Enemy))
-//            {
-//                //game->score->increase();
-//qDebug() << " enemy c" << endl;
-//                game->scene->removeItem(colliding_items[i]);
-//                //game->scene->removeItem(this);
-
-//                //game->activeEnemy = false;
-//                delete colliding_items[i];
-//                //delete this;
-
+            if (typeid(*(colliding_items[i])) == typeid(Safineh))
+            {
                 timer1->stop();
-               // colliding_items.removeOne(game->enemy[i]);
-               // game->scene->removeItem(game->enemy[i]);
+                for (int i = 0 ; i < game->enemy.size() ; i++)
+                {
+                    game->scene->removeItem(game->enemy[i]);
+                }
+                for ( int j = 0 ; j < game->board.size() ; j++)
+                {
+                    game->scene->removeItem(game->board[j]);
+                }
+                game->score->setPos(100 , 500);
+                game->score->setPlainText(QString("you won and your score: ") + QString::number(game->score->getScore()));
 
-                timer3 = new QTimer(this);
-                connect(timer3, SIGNAL(timeout()), this, SLOT(fall()));
 
-                timer3->start(40);
             }
+            else if (typeid(*(colliding_items[i])) == typeid(Spider) || typeid(*(colliding_items[i])) == typeid(BossMon) ||
+                    typeid(*(colliding_items[i])) == typeid(Fly) || typeid(*(colliding_items[i])) == typeid(Bluemon))
+            {
+                 //gameover();
+                 timer1->stop();
+                 timer3 = new QTimer(this);
+                 connect(timer3, SIGNAL(timeout()), this, SLOT(fall()));
+
+                 timer3->start(40);
+            }
+
         }
 }
 
@@ -288,18 +310,25 @@ void Doodle::set_pos()
     else
         setPos(x() + dx, y() - Y);
 
+    game->safineh->setX(x());
+
     if(y() > 800)
     {
         timer1->stop();
-        isGameOver = true;
+        //isGameOver = true;
         gameover();
     }
 }
 
 void Doodle::fall()
 {
-    setPos(x() - 0.1, y() + 40);
-    //gameover
+    setPos(x(), y() + 40);
+    if (y() > 800)
+    {
+        timer3->stop();
+        gameover();
+    }
+
 }
 
 void Doodle::ComputeY(int t1)
@@ -359,6 +388,7 @@ void Doodle::ComputeY(int t1)
         tmushak = t1;
 }
 
+
 void Doodle::set_board()
 {
     //qDebug() << "setboard "<< endl;
@@ -400,6 +430,7 @@ void Doodle::move_down(int fasele)
     setY(y() + fasele);
 }
 
+
 void Doodle::move_GO()
 {
     setPos(x(), y() + r);
@@ -408,11 +439,13 @@ void Doodle::move_GO()
         if(y() > 300){
             timer4->stop();
             game->score->setPos(100 , 500);
-            game->score->setPlainText(QString("your score: ") + QString::number(game->score->score));
-            game->score->setPlainText(QString("hight score: ") + QString::number(game->score->hightScore));
+            game->score->setPlainText(QString("your score: ") + QString::number(game->score->getScore()));
+
+           // game->score->setPlainText(QString("hight score: ") + QString::number(game->score->setHightScore()));
         }
     }
 }
+
 
 void Doodle::gameover(){
     isGameOver = true;

@@ -14,6 +14,7 @@ public:
    float v_0;
    float g;
    Spring(QGraphicsItem * parent=0);
+   virtual void setpixmap();
 
 public slots:
    void move();

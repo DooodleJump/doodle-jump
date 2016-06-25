@@ -30,5 +30,11 @@
         <file>play.png</file>
         <file>Missile.png</file>
         <file>ty.png</file>
+        <file>p-brown-1.png</file>
+        <file>p-brown-2.png</file>
+        <file>p-brown-3.png</file>
+        <file>p-brown-4.png</file>
+        <file>p-brown-5.png</file>
+        <file>p-brown-6.png</file>
     </qresource>
 </RCC>

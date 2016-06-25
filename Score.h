@@ -9,7 +9,7 @@ public:
     Score(QGraphicsItem * parent=0);
     void increase(int s);
     int getScore();
-    void setHightScore(int);
+    int setHightScore();
     int readScore();
     void writeScore();
     int fScore;

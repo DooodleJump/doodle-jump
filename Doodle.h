@@ -35,6 +35,7 @@ public:
     bool isMissile;
     bool isSpring;
     bool isGameOver;
+    bool isBrownboard;
 
     //QMediaPlayer *jump;
 

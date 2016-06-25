@@ -11,10 +11,12 @@
 #include "BossMon.h"
 #include "Spider.h"
 #include "Spring.h"
+#include "Brownboard.h"
 #include <QPushButton>
 //#include <QMediaPlayer>
 #include "Missile.h"
 #include "Springboard.h"
+#include "Safineh.h"
 
 class Game: public QGraphicsView{
 public:
@@ -24,6 +26,7 @@ public:
     QVector<Board*> board;
     QVector<Enemy*> enemy;
     Doodle *doodle;
+    Brownboard *brownboard;
     Enemy *enemy1;
     Spider *spider;
     Score *score;
@@ -33,6 +36,7 @@ public:
     Bluemon *bluemon;
     Missile *missile;
     Springboard * springboard;
+    Safineh * safineh;
     bool activeEnemy;
 };
 

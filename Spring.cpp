@@ -8,6 +8,11 @@ Spring::Spring(QGraphicsItem *parent)
      btype = 1;
 }
 
+void Spring::setpixmap()
+{
+
+}
+
 void Spring::move()
 {
     v_0 = 80.0;

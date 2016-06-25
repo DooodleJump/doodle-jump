@@ -32,7 +32,8 @@ SOURCES += main.cpp \
     Missile.cpp \
     Button.cpp \
     Spider.cpp \
-    BossMon.cpp
+    BossMon.cpp \
+    Safineh.cpp
 
 HEADERS  += \
     Game.h \
@@ -52,7 +53,8 @@ HEADERS  += \
     Button.h \
     Spider.h \
     BossMon.h \
-    Blueboard.h
+    Blueboard.h \
+    Safineh.h
 
 RESOURCES += \
     res.qrc \

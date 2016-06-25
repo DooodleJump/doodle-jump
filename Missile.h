@@ -13,6 +13,8 @@ class Missile: public Board //, public Award
 
 public:
    Missile(QGraphicsItem * parent=0);
+   virtual void setpixmap();
+
 public slots:
   // void move();
    //virtual void ability();
